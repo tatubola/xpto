@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="title">
+        <h2>New Channel for AS{{asn}}</h2>
+    </div>
+    <div class="col-md-12 content">
+        
+        <div class="row">
+            {% if asn and pix %}
+            <form class="django-form" action="{% url 'core:add_customer_channel_form' asn pix %}" method="post">
+            {% elif ix and asn %}
+            <form class="django-form" action="{% url 'core:add_pix_to_asn_form' ix asn %}" method="post">
+            {% endif %}
+                {% csrf_token %}
+                <table>
+                    <div class="row">
+                        <div class="col-md-6">
+                          {{form.pix_uuid}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          {{form.asn}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                          <label class="required">Ticket: </label>
+                        </div>
+                        <div class="col-md-6">
+                          {{form.ticket}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-5">
+                          <label class="required">PIX: </label>
+                        </div>
+                        <div class="col-md-6">
+                          {{form.pix}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-5">
+                          <label class="required">Switch: </label>
+                        </div>
+                        <div class="col-md-6">
+                          {{form.switch}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-5">
+                          <label class="required">Channel Name: </label>
+                        </div>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0 col-md-6">
+                            <div class="input-group-addon">ct-</div>
+                            {{form.channel_name}}
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-5">
+                          <label class="required">Cix type: </label>
+                        </div>
+                        <div class="col-md-6">
+                          {{form.cix_type}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-md-5">
+                          <label class="required">Ports: </label>
+                        </div>
+                        <div class="col-md-6">
+                          {{form.ports}}
+                        </div>
+                    </div>
+                </table>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

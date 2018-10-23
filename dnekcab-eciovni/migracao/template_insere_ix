@@ -1,0 +1,9 @@
+IX(
+    ix_id = "{{ ix_id }}",
+    codigo="{{ codigo }}",
+    nome_curto="{{ nome_curto if nome_curto != '' else 'N/A' }}",
+    nome_longo="{{ nome_longo if nome_longo != '' else 'N/A' }}",
+    estado="{{ estado }}",
+    cidade="{{ cidade }}"
+).save()
+

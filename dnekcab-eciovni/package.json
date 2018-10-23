@@ -1,0 +1,26 @@
+{
+  "name": "ix-invoice-backend",
+  "version": "1.0.0",
+  "description": "Este repositório contém o código fonte do projeto INVOICE, que consiste no sistema de pagamento do meu-ix. A implementação é feita com Docker e o framework Django.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://code.ceptro.br/projects/IX/repos/ix-invoice-backend/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commitizen": "^2.10.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0"
+  }
+}

@@ -1,0 +1,14 @@
+FROM python:3.6
+
+ENV PYTHONUNBUFFERED 1
+
+COPY ./requirements /requirements
+RUN pip install -r /requirements/local.txt
+
+COPY ./compose/django/start.sh /start.sh
+RUN chmod +x /start.sh
+
+RUN apt-get update && apt-get -y install mysql-client
+
+WORKDIR /invoice_api
+

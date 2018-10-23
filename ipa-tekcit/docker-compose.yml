@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+    flask:
+        build:
+            context: .
+            dockerfile: ./compose/flask/Dockerfile-dev
+        command: /start-dev.sh
+        volumes:
+            - .:/app
+        ports:
+            - "9090:9090"
+        networks:
+            - ixapi_default
+            - default
+
+networks:
+  ixapi_default:
+    external: true

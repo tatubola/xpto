@@ -1,0 +1,49 @@
+{
+    "ticket_info": {
+        "id": "{{ id }}"
+    },
+    "asn": "{{ asn }}",
+    "ix":"{{ ix }}",
+    "Nome da Entidade": {
+        "Nome da Entidade": "{{ entity_name }}",
+        "Nome curto": "{{ short_name }}",
+        "CNPJ": "{{ as_cnpj }}",
+        "Site": "{{ site }}" },
+        "Endereco da Entidade": {
+            "Logradouro": "{{ street }}",
+            "Numero": "{{ number }}",
+            "Complemento": "{{ compl }}",
+            "Bairro": "{{ neighbor }}",
+            "Cidade": "{{ city }}",
+            "CEP": "{{ zip }}",
+            "UF": "{{ state }}",
+            "Pais": "{{ country }}"
+        },
+    "Contatos do ASN": {
+        "Contato Administrativo": {
+                "Nome": "{{ adm_name }}",
+                "Email": "{{ adm_mail }}",
+                "Telefone": "{{ adm_phone }}"
+            },
+        "Contato Comercial": {
+                "Nome": "{{ com_name }}",
+                "Email": "{{ com_mail }}",
+                "Telefone": "{{ com_phone }}"
+            },
+        "Contato de Peering": {
+                "Nome": "{{ peer_name }}",
+                "Email": "{{ peer_mail }}",
+                "Telefone": "{{ peer_phone }}"
+            },
+        "Contatos do NOC": {
+                "Nome": "{{ noc_name }}",
+                "Email": "{{ noc_mail }}",
+                "Telefone": "{{ noc_phone }}"
+        },
+        "Organizacao": {
+                "Nome": "{{ org_name }}",
+                "Email": "{{ org_mail }}",
+                "Telefone": "{{ org_phone }}"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="title">
+        <h2>Reserve Port</h2>
+    </div>
+    <div class="col-md-12 content">
+        <div class="row">
+            <form class="django-form" action="{% url 'core:reserve_port_resource' sw %}" method="post">
+                {% csrf_token %}
+                <table>
+                    {{ form }}
+                </table>
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-primary" value="Submit" />
+                </div>
+            </form>
+        </div>
+        <div style="margin-top: 10px">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-warning{% endif %}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

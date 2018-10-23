@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block javascript %}
+{{ block.super }}
+<script src="{% static 'js/ix_detail.js' %}"></script>
+{% endblock %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-12 content-sub">
+        <div class="row">
+            <div class="col-md-5 title-container">
+                <div class="row">
+                    <div>
+                        <h2 class="title-header"><span>IP SEARCH</span> at IX.br</h4>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div>
+                        <h1 class="title-header"><span>{{ix.fullname}}</span></h1>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="search-ip" class="align-self-center h-100 " action="{% url 'core:ip_search' code=ix.pk %}" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ip" id="id_ip" required="True" placeholder="Search for IP Address">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" id="button-search-ip">Search</button>
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p id="info_ip" style="min-height:24px;color:red;"></p>
+                                </div>
+                            </div>
+                        </form>      
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <table id="ip-list-table" class="table table-striped borderless table-resposive" width="100%">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">IP</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">ASN</th>
+                        <th class="text-center">NAME</th>
+                        {% if ip_dic.ip.4 is not None %}
+                        <th class="text-center">PIX</th>
+                        <th class="text-center">Switch</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">{{ip_dic.ip.0}}</td>
+                        {% if ip_dic.ip.1 == 'ALLOCATED' %}
+                        <td class="text-center" style="color:red;">{{ip_dic.ip.1}}</td>
+                        {% else %}
+                        <td class="text-center" style="color:green;">{{ip_dic.ip.1}}</td>
+                        {% endif %}
+                        {% if ip_dic.ip.2 is not None %}
+                        <td class="text-center"><a href="{% url 'core:as_detail' asn=ip_dic.ip.2 %}">{{ip_dic.ip.2}}</a></td>
+                        <td class="text-center"><a href="{% url 'core:as_detail' asn=ip_dic.ip.2 %}">{{ip_dic.ip.3}}</a></td>
+                        {% else %}
+                        <td class="text-center">{{ip_dic.ip.2}}</td>
+                        <td class="text-center">{{ip_dic.ip.3}}</td>
+                        {% endif %}
+                        {% if ip_dic.ip.4 is not None %}
+                        <td class="text-center">{{ip_dic.ip.4}}</td>
+                        <td class="text-center"><a href="{% url 'core:switch_detail' code=ix.code switch_uuid=ip_dic.ip.5.pk %}">{{ip_dic.ip.5.management_ip}}</a></td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

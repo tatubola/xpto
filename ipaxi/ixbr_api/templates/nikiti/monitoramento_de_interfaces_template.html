@@ -1,0 +1,21 @@
+<ul>
+{% for ip, ip_values in context.items %}
+<li class="toclevel-1 tocsection-{{ forloop.counter }}">
+  <a href="#{{ ip }}_-_SW_-_{{ ip_values.sw_model }}_-_PIX-{{ ip_values.pix|upper }}">
+    <span class="tocnumber">{{ forloop.counter }}</span>
+    <span class="toctext">{{ ip }} - SW - {{ ip_values.sw_model }} - PIX-{{ ip_values.pix|upper }}</span></a></li>
+{% endfor %}
+</ul>
+
+{% for ip, ip_values in context.items %}
+<h3> <span id="{{ ip }}_-_SW_-_{{ ip_values.sw_model }}_-_PIX-{{ ip_values.pix|upper }}"> {{ ip }} - SW - {{ ip_values.sw_model }} - PIX-{{ ip_values.pix|upper }}</span></h3>
+<pre>Port Specific
+{% for port, port_values in ip_values.ports.items %}
+{% if port_values.type == "P" %}
+{{ port_values.asn }}     {{ port_values.participante }}                     {{ ip_values.pix }}                  {{ port }}         {{ port_values.type }}      Em Ativação    {% if port_values.ticket != None %} [{{ port_values.ticket }}] {% endif %}
+{% for status in port_values.status %}
+                                                                              {{ status.strip }}  {% if port_values.ticket != None %} [{{ port_values.ticket }}] {% endif %} {% endfor %}
+{% else %}{{ port_values.asn }}     {{ port_values.participante }}                      {{ ip_values.pix }}                  {{ port }}         {{ port_values.type }}      {{ port_values.status }}{%  endif %}{% endfor %}
+</pre>{% endfor %}
+
+{% if port_values.ticket != None %} [{{ port_values.ticket }}] {% endif %}

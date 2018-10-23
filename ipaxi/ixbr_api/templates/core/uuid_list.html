@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="col-md-12 content-sub">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row title-container">
+                        <div >
+                            <h2 class="title-header">UUID: {{ uuid }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <hr>
+            <br>
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-{{ message.tags }}{% else %}alert-warning{% endif %}">{{ message }}</div>
+            {% endfor %}
+            <h5>Found {{ search_res|length }} Items</h5>
+            <br>
+            <div class="row">
+              {% for item in search_res %}
+                <div class="col-md-3">
+                  <div class="row jumbotron bold small">
+                    <div class="col-md-12">
+                      <p>
+                        <div class="row">
+                          <label>Item Found: {{ item.type }}</label>
+                        </div>
+                        <div class="row">
+                          <label>Item Desc: {{ item.desc }}</label>
+                        </div>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1"></div>
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

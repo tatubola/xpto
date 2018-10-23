@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ixbr_api.core.views.as_views &#8212; IX.br API 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">IX.br API 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ixbr_api.core.views.as_views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="k">import</span> <span class="n">LoginRequiredMixin</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="k">import</span> <span class="n">ValidationError</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">requests</span> <span class="k">import</span> <span class="n">get</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">django.views.generic.edit</span> <span class="k">import</span> <span class="n">FormView</span>
+
+<span class="kn">from</span> <span class="nn">..models</span> <span class="k">import</span> <span class="p">(</span><span class="n">ASN</span><span class="p">,</span> <span class="n">IX</span><span class="p">,</span> <span class="n">PIX</span><span class="p">,</span> <span class="n">BilateralPeer</span><span class="p">,</span> <span class="n">ContactsMap</span><span class="p">,</span>
+                      <span class="n">CustomerChannel</span><span class="p">,</span> <span class="n">MACAddress</span><span class="p">,</span> <span class="n">MLPAv4</span><span class="p">,</span> <span class="n">MLPAv6</span><span class="p">,</span> <span class="n">Port</span><span class="p">,)</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">external_api_urls</span>
+<span class="kn">from</span> <span class="nn">..utils.mixins</span> <span class="k">import</span> <span class="n">LogsMixin</span>
+<span class="kn">from</span> <span class="nn">..utils.whoisutils</span> <span class="k">import</span> <span class="n">get_parsed_whois</span>
+<span class="kn">from</span> <span class="nn">..validators</span> <span class="k">import</span> <span class="n">validate_as_number</span>
+
+<span class="n">NOT_FOUND</span> <span class="o">=</span> <span class="s1">&#39;ASN not found&#39;</span>
+
+
+<div class="viewcode-block" id="ASSearchView"><a class="viewcode-back" href="../../../../docstring.html#ixbr_api.core.views.as_views.ASSearchView">[docs]</a><span class="k">class</span> <span class="nc">ASSearchView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Search a ASN</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        asn (int): ASN desired passed by parameter</span>
+<span class="sd">        as_object (&lt;class &#39;ixbr_api.core.models.ASN&#39;&gt;): Get the asn from ASN</span>
+<span class="sd">        models or ask to add the AS.</span>
+<span class="sd">    returns:</span>
+<span class="sd">        If the search was successful, returns to the as detail with ASN number,</span>
+<span class="sd">        else ask to add the AS.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">asn</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;asn&#39;</span><span class="p">)</span>
+        <span class="n">prev_path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prev_path&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">validate_as_number</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">asn</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;core:as_detail&#39;</span><span class="p">,</span> <span class="n">asn</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">prev_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;ASNs are only compound by numbers.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">prev_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ASDetailView"><a class="viewcode-back" href="../../../../docstring.html#ixbr_api.core.views.as_views.ASDetailView">[docs]</a><span class="k">class</span> <span class="nc">ASDetailView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Detail of a ASN</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        context (dic): Dictionary that return a set of informations</span>
+<span class="sd">        to be printed.</span>
+<span class="sd">        as_object (&lt;class &#39;ixbr_api.core.models.ASN&#39;&gt;): Get the asn from ASN</span>
+<span class="sd">        models or return a 404.</span>
+<span class="sd">        ix_list (&lt;class &#39;django.db.models.query.QuerySet&#39;&gt;): Get queryset with</span>
+<span class="sd">        filtered IXs from a specified ASN.</span>
+<span class="sd">    returns:</span>
+<span class="sd">        A dict context with all the IXs from ASN number and all informations</span>
+<span class="sd">        about ASN specified. For example:</span>
+<span class="sd">        {&#39;object&#39; : [AS62000: [wolfe-morrison: Wolfe-Morrison]]},</span>
+<span class="sd">        {&#39;ix_list&#39;, &lt;QuerySet [&lt;IX: [sp]&gt;]&gt;}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">asn</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">as_object</span> <span class="o">=</span> <span class="n">ASN</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">number</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">as_object</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">ix_list</span> <span class="o">=</span> <span class="n">IX</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">contactsmap__asn__number</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;fullname&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
+            <span class="n">request</span><span class="p">,</span>
+            <span class="s1">&#39;as/as_detail.html&#39;</span><span class="p">,</span>
+            <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;as_object&#39;</span><span class="p">:</span> <span class="n">as_object</span><span class="p">,</span> <span class="s1">&#39;ix_list&#39;</span><span class="p">:</span> <span class="n">ix_list</span><span class="p">,</span> <span class="s1">&#39;asn&#39;</span><span class="p">:</span> <span class="n">asn</span><span class="p">}</span>
+        <span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">ASAddView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">asn</span><span class="p">):</span>
+        <span class="n">as_to_add</span> <span class="o">=</span> <span class="n">asn</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">get_parsed_whois</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">asn</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">ValidationError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
+                <span class="n">request</span><span class="p">,</span>
+                <span class="s2">&quot;../templates/as_does_not_exist.html&quot;</span><span class="p">,</span>
+                <span class="p">{</span><span class="s2">&quot;ASN&quot;</span><span class="p">:</span> <span class="n">asn</span><span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
+            <span class="n">request</span><span class="p">,</span>
+            <span class="s1">&#39;as/as_add.html&#39;</span><span class="p">,</span>
+            <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;asn&#39;</span><span class="p">:</span> <span class="n">as_to_add</span><span class="p">,</span> <span class="p">}</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ASWhoisView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">asn</span><span class="p">):</span>
+        <span class="n">asn</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">asn</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">get_parsed_whois</span><span class="p">(</span><span class="n">asn</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ValidationError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span>
+                <span class="n">request</span><span class="p">,</span>
+                <span class="s2">&quot;../templates/as_does_not_exist.html&quot;</span><span class="p">,</span>
+                <span class="p">{</span><span class="s2">&quot;ASN&quot;</span><span class="p">:</span> <span class="n">asn</span><span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;info&#39;</span><span class="p">:</span> <span class="n">info</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;as/whois.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ASIXDetailView"><a class="viewcode-back" href="../../../../docstring.html#ixbr_api.core.views.as_views.ASIXDetailView">[docs]</a><span class="k">class</span> <span class="nc">ASIXDetailView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Detail of a ASN from a IX</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        context (dic): Dictionary that return a set of informations</span>
+<span class="sd">        to be printed.</span>
+<span class="sd">        ports_in_ix (&lt;class &#39;django.db.models.query.QuerySet&#39;&gt;): Get the ports</span>
+<span class="sd">        of the switches in the given ix.</span>
+<span class="sd">        customer_channels (&lt;class &#39;django.db.models.query.QuerySet&#39;&gt;): Get the</span>
+<span class="sd">        customer channels of the given ix based on the ports.</span>
+<span class="sd">        customer_channels (&lt;class &#39;django.db.models.query.QuerySet&#39;&gt;): Filter</span>
+<span class="sd">        to get the customer channels that have some service vinculated to</span>
+<span class="sd">        the given asn.</span>
+<span class="sd">        channel_services (list): Services from a PIX.</span>
+<span class="sd">        ix (&lt;class &#39;django.db.models.query.QuerySet&#39;&gt;): Get the IX of the</span>
+<span class="sd">        in the given ix.</span>
+<span class="sd">        current_asn (&lt;class &#39;django.db.models.query.QuerySet&#39;&gt;): Get the ASN</span>
+<span class="sd">        of the in the given ASN.</span>
+<span class="sd">        asn_stats (dict): All services stats about this asn.</span>
+<span class="sd">        asn_pix_channels (dic): DIctionary that contains a set of informations</span>
+<span class="sd">        of PIXs from a IX specified.</span>
+<span class="sd">        contacts_map_list (&lt;class &#39;django.db.models.query.QuerySet&#39;&gt;): Get the</span>
+<span class="sd">        contacts of a IX specified and a ASN specified.</span>
+<span class="sd">    returns:</span>
+<span class="sd">        A dict context with all the IXs from ASN number and all informations</span>
+<span class="sd">        about ASN specified. For example:</span>
+<span class="sd">        {&#39;asn&#39; : [AS62000: [wolfe-morrison: Wolfe-Morrison]] }, {&#39;ix&#39;, [sp]},</span>
+<span class="sd">        {&#39;channel_services&#39; : {&#39;Mcbride&#39;: {&lt;CustomerChannel: 89504f27-3cd2-4d90-bd9d-5c1376edd798 [AS62000 15]&gt;:</span>
+<span class="sd">        [[&lt;MLPAv4: a9ce8743-d37a-4143-873d-d113a1d2f778 [as62000-mlpav4 AS62000 [[sp]-4072:</span>
+<span class="sd">        [sw226-dl]]:988]&gt;], &lt;QuerySet []&gt;, &lt;QuerySet []&gt;]}}}</span>
+<span class="sd">        {&#39;asn_pix_channels&#39; : {&lt;PIX: [IX sp: PIX Mcbride]&gt;: &lt;QuerySet [&lt;CustomerChannel: 89504f27-3cd2-4d90-bd9d-5c1376edd798 [AS62000 15]&gt;]&gt;}}</span>
+<span class="sd">        {&#39;mlpav4_total&#39;: 3},</span>
+<span class="sd">        {&#39;mlpav6_total&#39;:2},</span>
+<span class="sd">        {&#39;bilateral_total&#39;: 1},</span>
+<span class="sd">        {&#39;organization_contacts&#39; : [AS[AS62000: [wolfe-morrison: Wolfe-Morrison]]: [sp]: [cgomez@bennett.biz: Laura Bell]]}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">asn</span><span class="p">):</span>
+
+        <span class="c1"># Get the ports of the switches in the given ix</span>
+        <span class="n">ports_in_ix</span> <span class="o">=</span> <span class="n">Port</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">switch__pix__ix__pk</span><span class="o">=</span><span class="n">code</span><span class="p">)</span>
+
+        <span class="c1"># Get the customer channels of the given ix based on the ports</span>
+        <span class="n">customer_channels</span> <span class="o">=</span> <span class="n">CustomerChannel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">channel_port__in</span><span class="o">=</span><span class="n">ports_in_ix</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span>
+                <span class="s1">&#39;channel_port&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="c1"># Filter to get the customer channels that have some service vinculated</span>
+        <span class="c1"># to the given asn</span>
+
+        <span class="n">customer_channels</span> <span class="o">=</span> <span class="n">customer_channels</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">Q</span><span class="p">(</span><span class="n">mlpav4__asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span> <span class="o">|</span>
+            <span class="n">Q</span><span class="p">(</span><span class="n">mlpav6__asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span> <span class="o">|</span>
+            <span class="n">Q</span><span class="p">(</span><span class="n">bilateralpeer__asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">))</span>
+
+        <span class="n">channel_services</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">customer_channels</span><span class="p">:</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">get_ports</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">switch</span><span class="o">.</span><span class="n">pix</span><span class="o">.</span><span class="n">code</span> <span class="ow">not</span> <span class="ow">in</span>
+                    <span class="n">channel_services</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">channel_id</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">get_ports</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">switch</span><span class="o">.</span><span class="n">pix</span><span class="o">.</span><span class="n">code</span>
+                <span class="n">channel_services</span><span class="p">[</span><span class="n">channel_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="n">channel_services</span><span class="p">[</span><span class="n">channel_id</span><span class="p">][</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">mlpav4</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">MLPAv4</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">,</span>
+                                                <span class="n">customer_channel</span><span class="o">=</span><span class="n">channel</span><span class="p">))</span>
+            <span class="n">channel_services</span><span class="p">[</span><span class="n">channel_id</span><span class="p">][</span><span class="n">channel</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlpav4</span><span class="p">)</span>
+
+            <span class="n">mlpav6</span> <span class="o">=</span> <span class="p">(</span><span class="n">MLPAv6</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">,</span>
+                                            <span class="n">customer_channel</span><span class="o">=</span><span class="n">channel</span><span class="p">))</span>
+            <span class="n">channel_services</span><span class="p">[</span><span class="n">channel_id</span><span class="p">][</span><span class="n">channel</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlpav6</span><span class="p">)</span>
+
+            <span class="n">bilateral</span> <span class="o">=</span> <span class="p">(</span><span class="n">BilateralPeer</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+                <span class="n">asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">,</span> <span class="n">customer_channel</span><span class="o">=</span><span class="n">channel</span><span class="p">))</span>
+            <span class="n">channel_services</span><span class="p">[</span><span class="n">channel_id</span><span class="p">][</span><span class="n">channel</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bilateral</span><span class="p">)</span>
+
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">IX</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">code</span><span class="p">)</span>
+        <span class="n">current_asn</span> <span class="o">=</span> <span class="n">ASN</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span>
+        <span class="n">asn_stats</span> <span class="o">=</span> <span class="n">current_asn</span><span class="o">.</span><span class="n">get_stats_amount</span><span class="p">(</span><span class="n">ix</span><span class="o">=</span><span class="n">ix</span><span class="p">)</span>
+
+        <span class="n">asn_pix_channels</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">pix</span> <span class="ow">in</span> <span class="n">PIX</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ix__pk</span><span class="o">=</span><span class="n">code</span><span class="p">):</span>
+
+            <span class="n">ports_in_ix_pix</span> <span class="o">=</span> <span class="n">Port</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">switch__pix</span><span class="o">=</span><span class="n">pix</span><span class="p">)</span>
+            <span class="n">asn_customer_channels</span> <span class="o">=</span> <span class="n">CustomerChannel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+                <span class="n">asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">,</span>
+                <span class="n">channel_port__in</span><span class="o">=</span><span class="n">ports_in_ix_pix</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;channel_port&#39;</span><span class="p">,</span>
+                                                             <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">asn_customer_channels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">asn_pix_channels</span><span class="p">[</span><span class="n">pix</span><span class="p">]</span> <span class="o">=</span> <span class="n">asn_customer_channels</span>
+        <span class="n">contacts_map_list</span> <span class="o">=</span> <span class="n">ContactsMap</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ix__pk</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">asn__pk</span><span class="o">=</span><span class="n">asn</span><span class="p">)</span>
+        <span class="n">url_ticket_meuix</span> <span class="o">=</span> <span class="n">external_api_urls</span><span class="o">.</span><span class="n">get_ticker_meuix_url</span><span class="p">()</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;asn&#39;</span><span class="p">:</span> <span class="n">current_asn</span><span class="p">,</span>
+                   <span class="s1">&#39;ix&#39;</span><span class="p">:</span> <span class="n">ix</span><span class="p">,</span>
+                   <span class="s1">&#39;channel_services&#39;</span><span class="p">:</span> <span class="n">channel_services</span><span class="p">,</span>
+                   <span class="s1">&#39;mlpav4_total&#39;</span><span class="p">:</span> <span class="n">asn_stats</span><span class="p">[</span><span class="s1">&#39;mlpav4_amount&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;mlpav6_total&#39;</span><span class="p">:</span> <span class="n">asn_stats</span><span class="p">[</span><span class="s1">&#39;mlpav6_amount&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;bilateral_total&#39;</span><span class="p">:</span> <span class="n">asn_stats</span><span class="p">[</span><span class="s1">&#39;bilateral_amount&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;asn_pix_channels&#39;</span><span class="p">:</span> <span class="n">asn_pix_channels</span><span class="p">,</span>
+                   <span class="s1">&#39;organization_contacts&#39;</span><span class="p">:</span> <span class="n">contacts_map_list</span><span class="p">,</span>
+                   <span class="s1">&#39;url_ticket_meuix&#39;</span><span class="p">:</span> <span class="n">url_ticket_meuix</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;as/ix_as_detail.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">IX.br API 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, NIC.br.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

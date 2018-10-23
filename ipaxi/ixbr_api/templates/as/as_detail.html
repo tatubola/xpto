@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="title-container">
+                <h1 class="title-header"><span>AS{{ asn }}</span></h1>
+            </div>
+        </div>
+        <br>
+        <div class="row pt-2">
+            <div id="id_ix_list" class="col-md-5 col-sm-12 d-flex flex-md-column">
+                <div class="jumbotron flex-full-height mw-100">
+                    {% if as_object.number%}
+                    <h3>IXs where this AS is present:&nbsp;<i class="fa fa-plus-square" href="{% url 'core:add_ix_to_asn_form' asn=as_object.number %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i></h3>
+                    {%endif%}
+                    <hr>
+                    {% if as_object %}
+                    <table>
+                        <tbody>
+                            {% for ix in ix_list %}
+                            <tr class="ix">
+                                <td>
+                                    <a href="{% url 'core:ix_as_detail' code=ix.code asn=as_object.number %}">{{ ix.fullname }}</a>
+                                    &emsp;
+                                    <button class="stats-button" href="{% url 'core:ix_as_stats' code=ix.code asn=as_object.number %}" data-toggle="modal" data-target="#modal">
+                                        <i class="fa fa-line-chart"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {%else%}
+                    <h3>This AS Does Not Exist</h3>
+                    <hr>
+                    <table>
+                        <tbody>
+                                <td align="center">
+                                    <a class="btn btn-lg" href="{% url 'core:add_as_contact_form' asn%}" data-toggle="modal" data-target="#modal">Add AS{{ asn }}</a>
+                                </td>
+                        </tbody>
+                    </table>
+                    {%endif%}
+                </div>
+            </div>
+
+            <div id="id_whois" class="col-md-7 col-sm-12 d-flex flex-md-column align-items-stretch">
+                <div class="jumbotron flex-full-height mw-100">
+                    <h2>Whois info:</h2>
+                    <br>
+                    <div id="whoisContent" class="mt-1 d-flex flex-sm-column align-items-center">
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                        <div id="whoisFail" class='hidden'>
+                            <h4>Could not get Whois</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div id="asModalHeader" class="modal-header">
+                    <div class="title-holder">
+                        <h1>Loading statistics...</h1>
+                    </div>
+                    <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                 <div class="modal-body my-3">
+                    <div class="d-flex flex-sm-column align-items-center">
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/as_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal_render.js' %}"></script>
+{% endblock %}

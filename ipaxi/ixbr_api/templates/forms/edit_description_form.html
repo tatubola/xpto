@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="title">
+        <h2>Edit Description</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row">
+            {% if port %}
+            <form class="django-form" action="{% url 'core:edit_description_by_port_form' port %}" method="post">
+            {% elif tag %}
+            <form class="django-form" action="{% url 'core:edit_tag_description_form' tag %}" method="post">
+            {% elif ipv4 %}
+            <form class="django-form" action="{% url 'core:edit_ip_description_form' ipv4 ipv6%}" method="post">
+            {% endif %}
+                {% csrf_token %}
+                <table>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="required">Description: </label>
+                        </div>
+                        <div class="col-md-9">
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-9 alert_characters">
+                            Only {{form.description.field.max_length}} characters are allowed
+                        </div>
+                    </div>
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

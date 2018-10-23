@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load core_filters %}
+{% block title %}Switch {{ switch.management_ip }} IX: {{ ix.fullname }} {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 title-container">
+            <h2 class="title-header">{{ ix.fullname }}</h2>
+            <h2 class="title-header">{{ switch.pix }}</h2>
+            <h2 class="title-header">SWITCH: {{ switch.management_ip }}</h2>
+            <h2 class="title-header">MODEL: {{ switch.model }}</h2>
+        </div>
+    </div>
+    <br>
+    <br>
+    <a href="{% url 'core:reserve_port_resource' sw=switch.uuid %}" data-toggle="modal" data-target="#modal" class="btn btn-primary margintop16">Reserve Port</a>
+    <a href="{% url 'core:release_port_resource' sw=switch.uuid %}" data-toggle="modal" data-target="#modal" class="btn btn-primary margintop16">Release Port</a>
+
+
+    <table id="switch-detail-list-table" class="table table-striped borderless table-resposive" width="100%">
+        <thead class="thead-inverse">
+            <tr>
+                <th class="align-middle text-center">Port</th>
+                <th class="align-middle text-center">Reserved</th>
+                <th class="align-middle text-center">Capacity</th>
+                <th class="align-middle text-center">Connector Type</th>
+                <th class="align-middle text-center">Physical Interface</th>
+                <th class="align-middle text-center">DIO</th>
+                <th class="align-middle text-center">Status</th>
+                <th class="align-middle text-center">Description</th>
+                <th class="align-middle text-center">Module</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for key, port in switch.ordered_ports.items %}
+            <tr class="port-box" data-codigo="{{ port.pk }}" data-status="{{ port.status }}">
+                <td class="align-middle text-center">{{ port.name }}</td>
+                  {% if port.reserved %}
+                <td class="align-middle text-center text-danger">True</td>
+                    {% else %}
+                <td class="align-middle text-center text-danger"></td>
+                  {% endif %}
+                <td class="align-middle text-center">{{ port.capacity_translated }}</td>
+                <td class="align-middle text-center">{{ port.connector_type }}</td>
+                <td class="align-middle text-center">{{ port.physical_interface }}
+                    <i class="no_display fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:edit_port_physical_interface_form' port=port.pk %}"
+                    data-toggle="modal" data-target="#modal"></i>
+                </td>
+                <td class="align-middle text-center">
+                    {% if port.dioport_set.first %}
+                        {{ port.dioport_set.first.dio.name }} - {{ port.dioport_set.first.datacenter_position }}
+                        <i class="fa fa-pencil-square-o no_display" aria-hidden="true" href="{% url 'core:edit_dio_port_form' pix=port.dioport_set.first.dio.pix.pk dio_port=port.dioport_set.first.pk %}" data-toggle="modal" data-target="#modal">
+                    {% endif %}
+                </td>
+                {% if port.status == 'AVAILABLE' %}
+                    <td class="align-middle text-center text-success">{{ port.status }}
+                    <i class="no_display fa fa-wrench" aria-hidden="true"
+                        onMouseOver="this.style.cursor='pointer'"
+                        href="{% url 'core:add_uplink_core_channel_port_form' ix=ix.code switch=switch.uuid port=port.pk %}"
+                        data-toggle="modal" data-target="#modal"></i>
+                    </td>
+                {% elif port.status == 'CUSTOMER' %}
+                    <td class="align-middle text-center text-primary">{{ port.status }} - AS{{ port.channel_port.customerchannel.asn.number }}</td>
+                {% else %}
+                    {% if port.channel_port.corechannel %}
+                        <td class="align-middle text-center text-danger">CORE</td>
+                    {% endif %}
+                    {% if port.channel_port.downlinkchannel %}
+                        <td class="align-middle text-center text-danger">DOWNLINK</td>
+                    {% endif %}
+                    {% if port.channel_port.uplinkchannel %}
+                        <td class="align-middle text-center text-danger">UPLINK</td>
+                    {% endif %}
+                    {% if port.channel_port.translationchannel %}
+                        <td class="align-middle text-center text-danger">TRANSLATION</td>
+                    {% endif %}
+                {% endif %}
+                <td class="align-middle text-center">
+                    <div class="row">
+                        <div class="col-md-10">
+                            {{ port.description }}
+                        </div>
+                        <div class="col-md-2">
+                            {% if port.description == "" %}
+                                <i class="fa fa-plus-circle no_display" aria-hidden="true" href="{% url 'core:edit_description_by_port_form' port=port.pk %}" data-toggle="modal" data-target="#modal" title="Add description"></i>
+                            {% else %}
+                                <i class="fa fa-pencil-square-o no_display" aria-hidden="true" href="{% url 'core:edit_description_by_port_form' port=port.pk %}" data-toggle="modal" data-target="#modal" title="Edit description"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+
+                    {% if port.switch_module %}
+                    <a href="{% url 'core:switch_module_detail' module=port.switch_module.pk%}" data-toggle="modal" data-target="#modal">
+                        {{port.switch_module}}
+                    </a>
+                    {% endif %}
+
+                </td>
+            </tr>
+            {% if port.status == 'CUSTOMER'%}
+            <tr class="info-customer" id="port-information-opened-{{ port.pk }}">
+                <td colspan="5" class="text-left">
+                    <div class="col-md-12 box-customer">
+                        <!--Listando o dono da porta-->
+                        <p style="margin-bottom:0px;">
+                            OWNER:
+                            <span class="port-customer-status-informations bold">
+                                AS{{ port.channel_port.customerchannel.asn.number }} - {{ port.channel_port.customerchannel.asn.contactsmap_set.first.organization.shortname }}
+                            </span>
+                        </p>
+
+                        <p style="margin-bottom:0px;" >
+                            CHANNEL NAME:
+                            <span class="port-customer-status-informations bold">
+                                {{ port.channel_port.customerchannel.name }} -
+                            </span>
+                            <span class="port-customer-status-informations" id="is-lag-{{ port.pk }}"></span>
+                        </p>
+
+                        <p style="margin-bottom:0px;" class="asn_customer">
+                            ASN(s): {
+                            {% for as_number in port.channel_port.customerchannel.get_stats_amount.asn_amount %}
+                                {% if as_number != port.channel_port.customerchannel.asn.number%}
+                                    <a class="white-link bold" href="{% url 'core:as_detail' asn=as_number %}">{{ as_number }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            }
+                        </p>
+
+                    </div>
+                </td>
+                <td colspan="4" class="text-left">
+                    <div class="col-md-12 box-customer">
+                    <p style="margin-bottom:0px;">
+                        TAG(S): {
+                            <span class="port-customer-status-informations bold" id="get-tags-{{ port.pk }}"></span>
+                        }
+                    </p>
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+            {% if port.status != 'CUSTOMER' and port.status != 'AVAILABLE' %}
+            <tr class="info-infrastructure" id="port-information-opened-{{ port.pk }}">
+                <td colspan="5" class="text-left">
+                    <div class="col-md-12 box-infrastructure">
+                        {% if not port.channel_port.corechannel %}
+                        <p style="margin-bottom:0px;">
+                            CHANNEL NAME:
+                            <span class="bold">
+                                {{ port.channel_port.downlinkchannel.name }}
+                                {{ port.channel_port.uplinkchannel.name }}
+                            </span>
+                        </p>
+                        <p style="margin-bottom:0px;">
+                            LAG: {
+                            {% for port_from_channel_port in port.channel_port.port_set.all %}
+                                <span class="bold">{{ port_from_channel_port.name }}</span>,
+                            {% endfor %}
+                            }
+                        </p>
+                        {% endif %}
+                    </div>
+                </td>
+                <td colspan="4" class="text-left">
+                    <div class="col-md-12 box-infrastructure">
+                        <p style="margin-bottom:0px;">
+                            {% if port.channel_port.corechannel %}
+                                ANOTHER CORE: {
+                            {% elif port.channel_port.downlinkchannel %}
+                                UPLINK: {
+                            {% elif port.channel_port.uplinkchannel %}
+                                DOWNLINK: {
+                            {% elif port.channel_port.translationchannel %}
+                                CUSTOMER CHANNEL: {
+                            {% endif %}
+                            <span class="bold">
+                                {{ port.channel_port.uplinkchannel.downlink_channel.channel_port.port_set.first.switch.pix }} {{ port.channel_port.uplinkchannel.downlink_channel.channel_port.port_set.first.switch.management_ip }}
+                                {{ port.channel_port.downlinkchannel.uplinkchannel.channel_port.port_set.first.switch.pix }} {{ port.channel_port.downlinkchannel.uplinkchannel.channel_port.port_set.first.switch.management_ip }}
+                                {{ port.channel_port.translationchannel.customer_channel.channel_port.port_set.first.switch.pix }} {{ port.channel_port.translationchannel.customer_channel.channel_port.port_set.first.switch.management_ip }}
+                                {{ port.channel_port.corechannel.other_core_channel.channel_port.port_set.first.switch.pix }} {{ port.channel_port.corechannel.channel_port.port_set.first.switch.management_ip }}
+                            </span>
+                            }
+                        </p>
+                        <p style="margin-bottom:0px;">
+                            CHANNEL: {
+                            <span class="bold">
+                                {{ port.channel_port.corechannel.name }}
+                                {{ port.channel_port.downlinkchannel.uplinkchannel.name }} {# when port is downlink, need to show its uplink#}
+                                {{ port.channel_port.uplinkchannel.downlink_channel.name }} {# when port is uplink, need to show its downlink#}
+                                {{ port.channel_port.translationchannel.name }}
+                            </span>
+                            }
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p class="text-right">
+        <a class="btn btn-secondary" href="{% url 'core:add_switch_module' switch.pk %}" data-toggle="modal" data-target="#modal">
+            <i class="fa fa-plus-circle no_display text-right" aria-hidden="true" title="Add new ports"> Add new Switch Module</i>
+        </a>
+    </p>
+</div>
+
+<!-- Begin Render modals -->
+
+<div id="modal" class="modal fade" data-animation="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="asModalHeader" class="modal-header">
+                <div class="title-holder">
+                    <h1>Loading...</h1>
+                </div>
+                <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+             <div class="modal-body my-3">
+                <div class="d-flex flex-sm-column align-items-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sub-modal" class="modal fade" data-animation="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="asModalHeader" class="modal-header">
+                <div class="title-holder">
+                    <h1>Loading...</h1>
+                </div>
+                <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body my-3">
+                <div class="d-flex flex-sm-column align-items-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- End Render modals -->
+
+{% endblock content %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+        var ix = "{{ix.pk}}";
+    </script>
+    <script src="{% static 'js/switch_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal_render.js' %}"></script>
+
+{% endblock %}

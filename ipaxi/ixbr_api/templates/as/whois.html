@@ -1,0 +1,14 @@
+<div id="whoisContent">
+    <table class="table">
+        {% for field, value in info  %}
+            <tr class="whois-tr {{ forloop.counter|divisibleby:2|yesno:'even,odd' }}">
+                <td>
+                    <div>{{ field }}{{ field|yesno:":," }}</div>
+                </td>
+                <td>
+                    <div>{{ value }}</div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

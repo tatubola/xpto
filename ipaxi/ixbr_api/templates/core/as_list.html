@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="col-md-12 content-sub">
+            <div class="row">
+                <div class="col-md-5 title-container">
+                    <div class="row">
+                        <div>
+                            <h2 class="title-header"><span>Searching for {{ name }}</span> at IX.br </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="search-tag" class="align-self-center h-100 " action="{% url 'core:name_search' %}" method="GET">
+                                <div class="input-group">
+                                    <input class="form-control" name="name" id="id_mac" required="True" placeholder="Search for ASN by Name...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary">Search</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <hr>
+            <br>
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-{{ message.tags }}{% else %}alert-warning{% endif %}">{{ message }}</div>
+            {% endfor %}
+            <div class="row">
+                {% for name, asns in organizations.items %}
+                    <div class=" col-md-3">
+                        <div class="row jumbotron bold small">
+                            <div class="col-md-12">
+                                <p>
+                                    <div class="row">
+                                        <label>Owner: {{ name }} </label>
+                                    </div>
+                                    <div class="row">
+                                        <label>ASNs:</label>
+                                    </div>
+                                    {% for asn in asns %}
+                                        <div class="row">
+                                                <label>
+                                                      <a href="{% url 'core:as_detail' asn=asn %}">{{ asn }}</a>
+                                                </label>
+                                            </div>
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

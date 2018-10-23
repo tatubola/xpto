@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load core_filters %}
+
+{% block title %}IX: {{ ix.fullname }} | Allocation IPs{% endblock %}
+{% block content %}
+    <div id="input-warning" class="alert alert-warning hidden">
+    	<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+    	<strong>Warning!</strong> This ASN doesn't match with this ip.
+    </div>
+    <div id="input-error" class="alert alert-danger hidden">
+    	<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+    	<strong>Error!</strong> Please, insert a not empty input.
+    </div>
+    <div class="container">
+    	<input type="hidden" value="">
+    	<div class="row">
+    		<div class="title-container">
+                <div>
+        			<h1 class="title-header">IPs Allocation at</h1>
+        		</div>
+        		<div>
+        			<h1 class="title-header"><span>{{ ix.fullname }}</span></h1>
+        		</div>
+            </div>
+    	</div>
+        <br>
+        <br>
+    	<div class="row">
+    		<div class="col-lg-6 col-md-6 search-asn-by-ips">
+    			<div class="input-group">
+    				<input type="number" min="1" max="2147483647" class="form-control" name="asn" id="asn" placeholder="Search IP by ASN...">
+    				<span class="input-group-btn">
+    					<button class="btn btn-primary" id="pesquisar-asn-ips">Search</button>
+    				</span>
+    			</div>
+    		</div>
+    		<div class="col-md-6" align="right">
+    			<select name="filter_ips" class="custom-select" id="filter_ips">
+    				<option value="">Filter IPs by status</option>
+    				<option value="ALL">All IPs</option>
+    				<option value="FREE" data-typeip="ipv4">IPv4 Free</option>
+    				<option value="ALLOCATED" data-typeip="ipv4">IPv4 Allocated</option>
+    				<option value="FREE" data-typeip="ipv6">IPv6 Free</option>
+    				<option value="ALLOCATED" data-typeip="ipv6">IPv6 Allocated</option>
+    			</select>
+    		</div>
+    	</div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <a href="{% url 'core:reserve_ip_resource' ix=ix.code %}" data-toggle="modal" data-target="#modal">Reserve IP</a>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <a href="{% url 'core:release_ip_resource' ix=ix.code %}" data-toggle="modal" data-target="#modal">Release IP</a>
+            </div>
+        </div>
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    	<table id="ip-list-table" class="table table-striped borderless table-resposive" width="100%">
+    	<thead class="thead-inverse">
+    		<tr>
+    			<th class="text-center">IPv4</th>
+    			<th class="text-center">Status</th>
+        		<th class="text-center">Reserved</th>
+    			<th class="text-center">IPv6</th>
+    			<th class="text-center">Status</th>
+        		<th class="text-center">Reserved</th>
+                <th class="text-center">Description</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		{% for key, value in ips.items %}
+    			<tr class="basic-ip-info-detail" id="border-{{key}}" data-open="{{key}}" data-ip='{{value.v4.address}}' data-ipv='{{value.v6.address}}'>
+    				<td class="text-center">{{value.v4.address}}</td>
+    				{% if value.v4_status == 'FREE' %}
+    				<td class="text-center text-success status-ipv4" data-open="{{key}}">{{value.v4_status}}</td>
+    				{% endif %}
+    				{% if value.v4_status == 'ALLOCATED' %}
+    				<td class="text-center text-danger status-ipv4" data-open="{{key}}">{{value.v4_status}}</td>
+    				{% endif %}
+    				<td class="text-center text-danger status-ipv4" data-open="{{key}}">{% if value.v4.is_reserved%}{{value.v4.is_reserved}}{% endif %}</td>
+    				<td class="text-center">{{value.v6.address}}</td>
+    				{% if value.v6_status == 'FREE' %}
+    				<td class="text-center text-success status-ipv6" data-open="{{key}}">{{value.v6_status}}</td>
+    				{% endif %}
+    				{% if value.v6_status == 'ALLOCATED' %}
+    				<td class="text-center text-danger status-ipv6" data-open="{{key}}">{{value.v6_status}}</td>
+    				{% endif %}
+    				<td class="text-center text-danger status-ipv6" data-open="{{key}}">{% if value.v6.is_reserved%}{{value.v6.is_reserved}}{% endif %}</td>
+                    <td class="align-middle text-center status-ipv4" data-open="{{key}}">
+                        <div class="">
+                            {{ value.v4.description }}
+                        </div>
+                        <div class="">
+                            {% if value.v4.description == "" %}
+                                <i class="fa fa-plus-circle no_display" aria-hidden="true" href="{% url 'core:edit_ip_description_form' ipv4=value.v4.pk ipv6=value.v6.pk %}" data-toggle="modal" data-target="#modal" title="Add description"></i>
+                            {% else %}
+                                <i class="fa fa-pencil-square-o no_display" aria-hidden="true" href="{% url 'core:edit_ip_description_form' ipv4=value.v4.pk ipv6=value.v6.pk %}" data-toggle="modal" data-target="#modal" title="Edit description"></i>
+                            {% endif %}
+                        </div>
+                    </td>
+    			</tr>
+    			<tr class="more-ip-info-detail" id="detail-open-{{key}}">
+    				<td colspan="3">
+    					<div class="col-md-12 more-ip-detail text-center" id="ipv4-detail-{{key}}">
+    						<p id="ipv4-detail-paragraph-asn-{{key}}" class="ip-detail-paragraph">ASN: <a href="{% url 'core:as_detail' asn=0 %}"><span id="ipv4-asn-{{key}}"></span></a></p>
+    						<p id="ipv4-detail-paragraph-name-{{key}}" class="ip-detail-paragraph">NAME: <a href="{% url 'core:ix_as_detail' code=ix.code asn=0 %}"><span id="ipv4-name-{{key}}"></span></a></p>
+    					</div>
+    				</td>
+    				<td colspan="4">
+    					<div class="col-md-12 more-ip-detail text-center" id="ipv6-detail-{{key}}">
+    						<p id="ipv6-detail-paragraph-asn-{{key}}" class="ip-detail-paragraph">ASN: <a href="{% url 'core:as_detail' asn=0 %}"><span id="ipv6-asn-{{key}}"></span></a></p>
+    						<p id="ipv6-detail-paragraph-name-{{key}}" id= class="ip-detail-paragraph">NAME: <a href="{% url 'core:ix_as_detail' code=ix.code asn=0 %}"><span id="ipv6-name-{{key}}"></span></a></p>
+    					</div>
+    				</td>
+                </tr>
+    		{% endfor %}
+    	</tbody>
+    </table>
+
+    <!-- Modal -->
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div id="asModalHeader" class="modal-header">
+                    <div class="title-holder">
+                        <h1>Loading IPs...</h1>
+                    </div>
+                    <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                 <div class="modal-body my-3">
+                    <div class="d-flex flex-sm-column align-items-center">
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+   {{ block.super }}
+    <script type="text/javascript">
+      var code = "{{ix.code}}";
+    </script>
+    <script src="{% static 'js/ip_list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal_render.js' %}"></script>
+{% endblock %}
+
+
+{#<a href="{% url 'core:add_phone_form' contact=organization_contacts.adm_contact.pk %}" data-toggle="modal" data-target="#modal">[add_phone]</a>#}
+

@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="title">
+        <h2>AS{{asn}} - NEW MLPA</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning message-tags" role="alert" style="display:none;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;Tags are the same</div>
+            </div>
+        </div>
+        <div class="row" id="form-display">
+            <form class="django-form-tag" action="{% url 'core:generic_new_mlpa_add_form' asn code %}" method="post">
+                {% csrf_token %}
+                {{form.asn}}
+                {{form.code}}
+                {{form.channel}}
+                <table>
+                    <div id="form-mlpa-general-information">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="required">Pix: </label>
+                                {{form.pix}}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="required">Switch: </label>
+                                {{form.switch}}
+                            </div>
+                            <div class="col-md-5">
+                                <label class="required">Customer Channel: </label>
+                                {{form.customer_channel}}
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="required">Ticket:</label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.last_ticket}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">Service option:</label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.service_option}}
+                        </div>
+                    </div>
+                    <div class="modal-body my-3" id="ip-load" style="display:none;">
+                        <div class="d-flex flex-sm-column align-items-center">
+                            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                        </div>
+                    </div>
+                    <div id="form-ipv4" style="display:none;margin-top:30px;">
+                        <h4>IPv4:</h4>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-md-2">
+                                <label class="required">Mlpav4 address:</label>
+                            </div>
+                            <div class="col-md-4">
+                                {{form.mlpav4_address}}
+                            </div>
+                            <div class="col-md-2">
+                                <label class="required">Tag v4:</label>
+                            </div>
+                            <div class="col-md-4">
+                                {{form.tag_v4}}
+                            </div>
+                        </div>
+                        <div class="form-inner" style="display:none">
+                            <div class="row" style="margin-top:30px;">
+                                <div class="col-md-2">
+                                    <label class="required">Inner v4:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.inner_v4}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="form-ipv6" style="display:none;margin-top:30px;">
+                        <h4>IPv6:</h4>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-md-2">
+                                <label class="required">Mlpav6 address:</label>
+                            </div>
+                            <div class="col-md-4">
+                                {{form.mlpav6_address}}
+                            </div>
+                            <div class="col-md-2">
+                                <label class="required">Tag v6:</label>
+                            </div>
+                            <div class="col-md-4">
+                                {{form.tag_v6}}
+                            </div>
+                        </div>
+                        <div class="form-inner" style="display:none">
+                            <div class="row" style="margin-top:30px;">
+                                <div class="col-md-2">
+                                    <label class="required">Inner v6:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.inner_v6}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-body my-3" id="tag-load" style="display:none;">
+            <div class="d-flex flex-sm-column align-items-center">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

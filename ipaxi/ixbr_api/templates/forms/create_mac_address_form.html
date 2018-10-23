@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="title">
+        <h2>New MAC Address</h2>
+    </div>
+    <div class="col-md-12 content-sub">
+        <div>
+            <form class="django-form-sub" action="{% url 'core:create_mac_address_form' %}" method="post">
+                {% csrf_token %}
+                {% for error in form.non_field_errors %}
+                    <div class="form-group has-errors text-danger small">
+                        {{error}}
+                    </div>
+                {% endfor %}
+                {% for field in form %}
+                    <div class="form-group has-errors text-danger small">
+                        {{field.errors}}
+                    </div>
+                    <div class="form-group has-errors text-danger small">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 bold">{{ field.label_tag }}</div> 
+                        <div class="col-lg-8">
+                            {{field}}
+                            {% if "Address" in field.label_tag %}
+                                <div>
+                                    <small class="text-muted">
+                                        Must be six groups of two lowercase hexadecimal digits separated by colons. For example: <span class="bold">00:19:f9:aa:a2:57</span>
+                                    </small>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-lg-8">
+                    <button type="submit" id='mac-form-submit' class="btn btn-primary" type="button">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-{{ message.tags }}{% else %}alert-warning{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

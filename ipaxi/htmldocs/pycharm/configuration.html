@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Docker Remote Debugging &#8212; IX.br API 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IX.br API 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="docker-remote-debugging">
+<h1>Docker Remote Debugging<a class="headerlink" href="#docker-remote-debugging" title="Permalink to this headline">¶</a></h1>
+<p>To connect to python remote interpreter inside docker, you have to make sure first, that Pycharm is aware of your docker.</p>
+<p>Go to <em>Settings &gt; Build, Execution, Deployment &gt; Docker</em>. If you are on linux, you can use docker directly using its socket  <cite>unix:///var/run/docker.sock</cite>, if you are on Windows or Mac, make sure that you have docker-machine installed, then you can simply <em>Import credentials from Docker Machine</em>.</p>
+<img alt="../_images/1.png" src="../_images/1.png" />
+<div class="section" id="configure-remote-python-interpreter">
+<h2>Configure Remote Python Interpreter<a class="headerlink" href="#configure-remote-python-interpreter" title="Permalink to this headline">¶</a></h2>
+<p>This repository comes with already prepared &#8220;Run/Debug Configurations&#8221; for docker.</p>
+<img alt="../_images/2.png" src="../_images/2.png" />
+<p>But as you can see, at the beggining there is something wrong with them. They have red X on django icon, and they cannot be used, withot configuring remote python interpteter. To do that, you have to go to <em>Settings &gt; Build, Execution, Deployment</em> first.</p>
+<p>Next, you have to add new remote python interpreter, based on already tested deployment settings. Go to <em>Settings &gt; Project &gt; Project Interpreter</em>. Click on the cog icon, and click <em>Add Remote</em>.</p>
+<img alt="../_images/3.png" src="../_images/3.png" />
+<p>Switch to <em>Docker Compose</em> and select <cite>dev.yml</cite> file from directory of your project, next set <em>Service name</em> to <cite>django</cite></p>
+<img alt="../_images/4.png" src="../_images/4.png" />
+<p>Because Pycharm restarts container every time you use Configuration Run, to not have server restarted during running tests, we defined second service in <cite>dev.yml</cite> file called pycharm. To use it, you have to add interpreter of second service as well.</p>
+<img alt="../_images/5.png" src="../_images/5.png" />
+<p>The final result should be:</p>
+<img alt="../_images/6.png" src="../_images/6.png" />
+<p>Having that, click <em>OK</em>. Close <em>Settings</em> panel, and wait few seconds...</p>
+<img alt="../_images/7.png" src="../_images/7.png" />
+<p>After few seconds, all <em>Run/Debug Configurations</em> should be ready to use.</p>
+<img alt="../_images/8.png" src="../_images/8.png" />
+<p><strong>Things you can do with provided configuration</strong>:</p>
+<ul class="simple">
+<li>run and debug python code</li>
+</ul>
+<img alt="../_images/f1.png" src="../_images/f1.png" />
+<ul class="simple">
+<li>run and debug tests</li>
+</ul>
+<img alt="../_images/f2.png" src="../_images/f2.png" />
+<img alt="../_images/f3.png" src="../_images/f3.png" />
+<ul class="simple">
+<li>run and debug migrations or different django managment commands</li>
+</ul>
+<img alt="../_images/f4.png" src="../_images/f4.png" />
+<ul class="simple">
+<li>and many others..</li>
+</ul>
+</div>
+<div class="section" id="known-issues">
+<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Pycharm hangs on &#8220;Connecting to Debugger&#8221;</li>
+</ul>
+<img alt="../_images/issue1.png" src="../_images/issue1.png" />
+<p>This might be fault of your firewall. Take a look on this ticket - <a class="reference external" href="https://youtrack.jetbrains.com/issue/PY-18913">https://youtrack.jetbrains.com/issue/PY-18913</a></p>
+<ul class="simple">
+<li>Modified files in <cite>.idea</cite> directory</li>
+</ul>
+<p>Most of the files from <cite>.idea/</cite> were added to <cite>.gitignore</cite> with a few exceptions, which were made, to provide &#8220;ready to go&#8221; configuration. After adding remote interpreter some of these files are altered by PyCharm:</p>
+<img alt="../_images/issue2.png" src="../_images/issue2.png" />
+<p>In theory you can remove them from repository, but then, other people will lose a ability to initialize a project from provided configurations as you did. To get rid of this annoying state, you can run command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git update-index --assume-unchanged ixbr_api.iml
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Docker Remote Debugging</a><ul>
+<li><a class="reference internal" href="#configure-remote-python-interpreter">Configure Remote Python Interpreter</a></li>
+<li><a class="reference internal" href="#known-issues">Known issues</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/pycharm/configuration.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">IX.br API 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, NIC.br.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

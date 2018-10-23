@@ -1,0 +1,391 @@
+
+// project specific CSS goes here
+
+////////////////////////////////
+    //Variables//
+////////////////////////////////
+
+$white: #fff;
+$black: #292b2c;
+$black_link: #555;
+$danger-color: #d9534f; //ALLOCATED | PRODUCTION -> Bootstrap danger color
+$success-color: #5cb85c; //AVAILABLE | FREE -> Bootstrap success color
+$primary-color: #428bca; //-> Bootstrap primary color
+$gray: #EDEDED;
+$asn_bg_color: #7C5400;
+$ix_fullname_bg_color: #081D4F;
+$purple_information_color: #697595;
+$beige_information_color: #D8C090;
+$white_link: #FFFFFF;
+$blue_primary: #0275d8;
+
+////////////////////////////////
+    //Mixins//
+////////////////////////////////
+@mixin colorful-h1($background-color) {
+  background-color:$background-color;
+  color:$white;
+  border-radius:10px;
+  padding:5px;
+}
+@mixin jumbotron-container($backgroung-color, $padding, $color){
+  background-color:$backgroung-color;
+  padding:$padding;
+  color:$color;
+  border-radius:10px;
+}
+
+////////////////////////////////
+    //General//
+////////////////////////////////
+
+body {
+  min-width: 240px;
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+table td {
+  border-top: none !important;
+}
+////////////////////////////////
+    //Generic//
+////////////////////////////////
+
+.asn-title-container span {
+  @include colorful-h1($asn_bg_color);
+}
+
+.beige-container-information {
+  @include jumbotron-container($beige_information_color, 15px, none)
+}
+
+.hidden {
+    display: none;
+}
+
+.italic{
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.hidden-link-title-header {
+  color: $black;
+}
+
+.asn-title-container,
+.ix-fullname-title-container {
+  margin: 0px 15px 0px 15px;
+}
+
+.ix-fullname-title-container span {
+  @include colorful-h1($ix_fullname_bg_color);
+}
+
+.small {
+  font-size: small;
+}
+
+.sub-title-with-margin {
+  align-content: inherit;
+  margin-top: 3em;
+}
+
+.title-container {
+    margin: 0px 15px 0px 15px;
+    width:100%;
+    float:left;
+    border-left:10px solid $asn_bg_color;
+}
+
+.title-header {
+  margin: 0px 7px 0px 15px;
+  font-weight: 900;
+}
+
+#go-to-top-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  @include jumbotron-container($black, 15px, $white);
+}
+
+#go-to-top-btn:hover {
+    background-color: $black_link; /* Add a dark-grey background on hover */
+}
+
+
+////////////////////////////////
+    //Modal//
+////////////////////////////////
+
+#asModalHeader {
+  align-items: flex-start;
+}
+
+#asModalHeader h2 {
+  font-size: 1.6rem;
+}
+
+.margintop30{
+  margin-top:30px;
+}
+.margintop16{
+  margin-top:16px;
+}
+.title-contact{
+  padding-bottom:5px;
+  margin-top:20px;
+  h6{
+    margin:0;
+  }
+  
+}
+.border-contacts{
+  width: 100%;
+  border-bottom: 2px dotted black;
+}
+
+////////////////////////////////
+    //home.html//
+////////////////////////////////
+
+#search-asn .btn {
+  right: 0;
+}
+
+////////////////////////////////
+    //tag_list.html//
+////////////////////////////////
+
+.filter-displaying-option {
+  margin-top: 15px;
+}
+
+////////////////////////////////
+    //Forms//
+////////////////////////////////
+
+label.required:after { content: '*' }
+
+////////////////////////////////
+    //as_detail.html//
+////////////////////////////////
+
+.stats-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.stats-button:focus {
+  outline: none;
+}
+
+#id_ix_list .jumbotron, #id_whois .jumbotron {
+  max-height: 640px;
+  overflow-y: scroll;
+}
+
+.jumbotron::-webkit-scrollbar {
+  display: none;
+}
+
+////////////////////////////////
+    //ix_as_detail.html//
+////////////////////////////////
+
+.card-body-project {
+  padding-left: 20px;
+}
+
+.card-link-project {
+  color: $blue_primary;
+  padding-bottom: 10px;
+}
+.channel-list {
+  @include jumbotron-container($purple_information_color, none, $white);
+}
+
+.channel-list .status-label {
+  @include jumbotron-container($purple_information_color, none, $white);
+}
+
+.contact-detail {
+  align-content: inherit;
+  margin-top: 2em !important;
+  margin-left: -1em !important;
+}
+
+.contacts-list .contact-description {
+  align-content: inherit;
+  margin-top: 1em;
+  @include jumbotron-container($beige_information_color, none, none);
+}
+
+.service-description {
+  align-content: inherit;
+  margin-top: 1em;
+}
+
+.service-description a {
+  color: inherit;
+}
+
+////////////////////////////////
+    //ip_list.html//
+////////////////////////////////
+
+#ip-list-table {
+  margin:30px 15px 0px 15px;
+}
+
+.more-ip-detail {
+  width: 100%;
+  background-color: #D3D3D3;
+  height: 48px;
+}
+
+.ip-detail-paragraph {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#ip-list-table .more-ip-info-detail {
+  display: none;
+}
+
+////////////////////////////////
+    //switch_detail.html//
+////////////////////////////////
+
+#switch-detail-list-table {
+margin-top: 30px;
+}
+
+#switch-detail-list-table .info-customer, 
+#switch-detail-list-table .info-infrastructure {
+  display:none;
+  color:$white;
+  #switch-detail-list-table .info-infrastructure td {
+    padding:15px !important;
+  }
+}
+
+#switch-detail-list-table .box-customer, 
+#switch-detail-list-table .box-infrastructure {
+  background-color:$purple_information_color;
+  height:72px;
+  border-radius:10px;
+  padding-left:15px;
+  padding-right:15px;
+  #switch-detail-list-table .port-customer-status-informations {
+    color:$white;
+  }
+}
+.alert_characters{
+  font-size: 10px;
+  color: #696969;
+}
+a.white-link, a.white-link:hover, a.white-link:active, a.white-link:visited { color: white; }
+
+////////////////////////////////
+    //ix_detail.html//
+////////////////////////////////
+
+
+.pix-set, .cix-set {
+  margin-top: 50px;
+}
+
+.pix-info, .cix-info {
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+.pix-info-son, .cix-info-son {
+  margin: 10px;
+  padding: 10px;
+  background-color: $purple_information_color;
+  border-radius: 10px;
+  font-size: small;
+  font-weight: bold;
+  .data-switch {
+    color: $white;
+  }
+  .pix-info-link {
+    color: $white;
+    text-decoration: underline;
+  }
+}
+
+.pix-info-son > p, .cix-info-son > p {
+  margin-bottom: 5px;
+}
+
+////////////////////////////////
+    //whois.html//
+////////////////////////////////
+
+#whoisContent {
+  bottom: 0;
+  position: relative;
+  overflow: auto;
+  max-height: 85%;
+}
+
+#whoisContent table {
+    margin: 0;
+}
+
+#whoisContent td > div {
+  min-height: 1em;
+  font-family: monospace;
+  line-height: 1em;
+}
+
+#whoisContent td:nth-child(1),
+#whoisContent td:nth-child(2) {
+  font-weight: bold;
+}
+
+tr.even > td:nth-child(1),
+tr.even > td:nth-child(2) {
+  background-color: #bbb;
+  color: $black;
+}
+
+tr.odd > td:nth-child(1),
+tr.odd > td:nth-child(2) {
+  background-color: #333;
+  color: $white;
+}
+
+.is-invalid{
+  border-color:#dc3545
+}
+
+.invalid-feedback {
+  min-height:24px;
+  color:red;
+}

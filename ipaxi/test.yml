@@ -1,0 +1,29 @@
+version: '2'
+
+volumes:
+  postgres_data_test: {}
+  postgres_backup_test: {}
+
+services:
+  postgres:
+    build: ./compose/postgres
+    volumes:
+      - postgres_data_test:/var/lib/postgresql/data
+      - postgres_backup_test:/backups
+    environment:
+      - POSTGRES_USER=ixbr_api
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile-test
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_HOST=postgres
+    env_file:
+      - django.env
+    volumes:
+      - .:/app
+    links:
+      - postgres

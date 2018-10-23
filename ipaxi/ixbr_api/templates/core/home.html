@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title %}IX.br Home{% endblock %}
+
+{% block javascript %}
+   {{ block.super }}
+    <script type="text/javascript">
+
+      var get_asn = "{% url 'core:as_search' %}"
+      var get_name = "{% url 'core:name_search' %}"
+      var get_uuid = "{% url 'core:uuid_search' %}"
+
+
+    </script>
+    <script src="{% static 'js/home.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal_render.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row pt-2">
+        <div class="col-md-6 col-sm-12 push-md-6 d-flex flex-md-column">
+            <div class="jumbotron flex-full-height">
+                <div class="align-self-center">
+                    <form id="search-form" class="align-self-center h-100" action="{% url 'core:as_search' %}" method="GET" novalidate>
+                        <div class="input-group">
+                            <input type="hidden" value="{{ request.path }}" name="prev_path">
+                            <input id="search-input" class="w-50 form-control " type="number" min="1" max="2147483647" required="True" name="asn" placeholder="Search for ASN..."/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" id="search-button">Search</button>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="invalid-feedback"></p>
+                            </div>
+                        </div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.extra_tags == "search_not_found" %}
+                                <div class="alert alert-warning"> {{ message }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </form>
+                    <div class="col-md-12">
+                        <p><strong>Choose one of these option to search for:</strong></p>
+                        <label class="custom-control custom-radio">
+                            <input name="input-type" type="radio" class="custom-control-input" id="asn-option" checked>
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">ASN</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input name="input-type" type="radio" class="custom-control-input" id="name-option">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Name</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input name="input-type" type="radio" class="custom-control-input" id="uuid-option">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">UUID</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 offset-md-1 col-sm-12 pull-md-7 d-flex flex-md-column">
+            <div class="jumbotron flex-full-height">
+                <table id="ix-list">
+                    <thead>
+                        <tr>
+                            <th><h2>Internet Exchanges&nbsp;<i class="fa fa-plus-square" aria-hidden="true" href="{% url 'core:create_ix_form'%}" data-toggle="modal" data-target="#modal"></i></h2></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ix in ix_list %}
+                            <tr>
+                                <td>
+                                    <a href="/core/ix/{{ix.code}}">{{ ix.fullname }}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <a href="{% url 'core:create_organization_form'%}" data-toggle="modal" data-target="#modal">Create new organization</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal" class="modal fade" data-animation="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="asModalHeader" class="modal-header">
+                <div class="title-holder">
+                    <h1>Loading statistics...</h1>
+                </div>
+                <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+             <div class="modal-body my-3">
+                <div class="d-flex flex-sm-column align-items-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

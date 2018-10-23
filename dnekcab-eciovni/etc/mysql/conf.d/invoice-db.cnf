@@ -1,0 +1,5 @@
+[mysqld]
+datadir = /mysql_data/prod/
+general-log
+log-error = /var/log/mysql/mysqld_error.log
+general-log-file = /var/log/mysql/mysqld_query.log

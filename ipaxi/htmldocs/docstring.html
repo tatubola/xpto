@@ -1,0 +1,1533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Docstrings &#8212; IX.br API 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Developing with Docker" href="docker_ec2.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="docker_ec2.html" title="Developing with Docker"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IX.br API 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="docstrings">
+<h1>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h1>
+<p>This document is an example of how to generate documentation from docstrings.</p>
+<div class="section" id="models">
+<h2>Models:<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><span class="target" id="module-ixbr_api.core.models"></span><dl class="class">
+<dt id="ixbr_api.core.models.ASN">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">ASN</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#ASN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.ASN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autonomous System (AS) Number representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Bilateral">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Bilateral</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Bilateral"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Bilateral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bilateral peers&#8217; pair.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.BilateralPeer">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">BilateralPeer</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#BilateralPeer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.BilateralPeer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bilateral peering service.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Channel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Channel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Channel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Network switch channel representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.ChannelPort">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">ChannelPort</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#ChannelPort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.ChannelPort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model to relate a channel to a set of ports.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Contact">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Contact</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Contact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Organization contact representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.ContactsMap">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">ContactsMap</code><span class="sig-paren">(</span><em>created</em>, <em>modified</em>, <em>modified_by</em>, <em>description</em>, <em>last_ticket</em>, <em>uuid</em>, <em>ix</em>, <em>organization</em>, <em>asn</em>, <em>noc_contact</em>, <em>adm_contact</em>, <em>peer_contact</em>, <em>com_contact</em>, <em>org_contact</em>, <em>peering_url</em>, <em>peering_policy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#ContactsMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.ContactsMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.CoreChannel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">CoreChannel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#CoreChannel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.CoreChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Core port channel representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.CustomerChannel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">CustomerChannel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#CustomerChannel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.CustomerChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Customer port channel representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.DIO">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">DIO</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#DIO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.DIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>DIO representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.DIOPort">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">DIOPort</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#DIOPort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.DIOPort" title="Permalink to this definition">¶</a></dt>
+<dd><p>DIO port representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.DownlinkChannel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">DownlinkChannel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#DownlinkChannel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.DownlinkChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downlink port channel representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.HistoricalTimeStampedModel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">HistoricalTimeStampedModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#HistoricalTimeStampedModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.HistoricalTimeStampedModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An abstract base class model to track which user modified and
+stores the history related to model data.</p>
+<dl class="method">
+<dt id="ixbr_api.core.models.HistoricalTimeStampedModel.save_without_historical_record">
+<code class="descname">save_without_historical_record</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ixbr_api.core.models.HistoricalTimeStampedModel.save_without_historical_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save model without saving a historical record</p>
+<p>Make sure you know what you&#8217;re doing before you use this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.IPv4Address">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">IPv4Address</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IPv4Address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IPv4Address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global IPv4 address to be used in IX&#8217; services.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.IPv6Address">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">IPv6Address</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IPv6Address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IPv6Address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global IPv6 address to be used in IX&#8217; services.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.IX">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">IX</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internet Exchange (IX) site representation.</p>
+<dl class="method">
+<dt id="ixbr_api.core.models.IX.create_ipv4">
+<code class="descname">create_ipv4</code><span class="sig-paren">(</span><em>old_addresses=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IX.create_ipv4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IX.create_ipv4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create all IPv4Addresses that belong to this IX IPv4 prefix.
+Raises ValueError if one of those IPs already exist and is assigned
+to another IX.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ixbr_api.core.models.IX.get_all_cix">
+<code class="descname">get_all_cix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IX.get_all_cix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IX.get_all_cix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to return List of CIX</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ixbr_api.core.models.IX.get_all_customer_channels">
+<code class="descname">get_all_customer_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IX.get_all_customer_channels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IX.get_all_customer_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to return List of CIX</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ixbr_api.core.models.IX.map_new_address_ipv4">
+<code class="descname">map_new_address_ipv4</code><span class="sig-paren">(</span><em>*services</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IX.map_new_address_ipv4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IX.map_new_address_ipv4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change address of services to match new prefix. If the new prefix
+contains the old one, no alteration is made. Else, the new address of a
+given service is calculated by keeping the same offset from the old
+prefix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ixbr_api.core.models.IX.update_ips">
+<code class="descname">update_ips</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IX.update_ips"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IX.update_ips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called after an IX has one of its prefixes changed.
+Create new IP objects and change the address of its services
+for the new prefix. They are not changed if the new prefix contains the
+old one (expansion)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.IXAPIQuerySet">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">IXAPIQuerySet</code><span class="sig-paren">(</span><em>model=None</em>, <em>query=None</em>, <em>using=None</em>, <em>hints=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#IXAPIQuerySet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.IXAPIQuerySet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a method to QuerySet class to handle Error when object does not exist.
+Method get_or_none can be used to return a NONE when a querie is issued
+and the given object does not exist.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.MACAddress">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">MACAddress</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#MACAddress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.MACAddress" title="Permalink to this definition">¶</a></dt>
+<dd><p>MAC address related to a service.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.MLPAv4">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">MLPAv4</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#MLPAv4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.MLPAv4" title="Permalink to this definition">¶</a></dt>
+<dd><p>IPv4 Multilateral Peering Agreement service.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.MLPAv6">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">MLPAv6</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#MLPAv6"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.MLPAv6" title="Permalink to this definition">¶</a></dt>
+<dd><p>IPv6 Multilateral Peering Agreement service.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Monitorv4">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Monitorv4</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Monitorv4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Monitorv4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Channel availability monitor service.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Organization">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Organization</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Organization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Organization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Organization representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.PIX">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">PIX</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#PIX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.PIX" title="Permalink to this definition">¶</a></dt>
+<dd><p>PIX site representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Phone">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Phone</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Phone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Phone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Phone representation</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.PhysicalInterface">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">PhysicalInterface</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#PhysicalInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.PhysicalInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Physical interface instance representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Port">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Port</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Network switch physical port representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.ReservableModel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">ReservableModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#ReservableModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.ReservableModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is used to implement Resource Reservation for some models</p>
+<dl class="method">
+<dt id="ixbr_api.core.models.ReservableModel.free_this">
+<code class="descname">free_this</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#ReservableModel.free_this"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.ReservableModel.free_this" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method free the resource</p>
+<p>Returns: True if the resource was reserved and freeing the resource
+occurred successfully or False if the resource was already free</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ixbr_api.core.models.ReservableModel.is_reserved">
+<code class="descname">is_reserved</code><a class="headerlink" href="#ixbr_api.core.models.ReservableModel.is_reserved" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the reservation status of a resource</p>
+<p>Returns: True if the resource is reserved or False otherwise</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ixbr_api.core.models.ReservableModel.reserve_this">
+<code class="descname">reserve_this</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#ReservableModel.reserve_this"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.ReservableModel.reserve_this" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method reserves the resource</p>
+<p>Returns: True if the resource was free and the reservation occurred
+successfully or False if the resource was alredy reserved.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Route">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Route</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Route"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Physical route representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Service">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Service</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Service"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Service representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Switch">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Switch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Switch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Network switch representation.</p>
+<dl class="method">
+<dt id="ixbr_api.core.models.Switch.create_additional_ports">
+<code class="descname">create_additional_ports</code><span class="sig-paren">(</span><em>quantity</em>, <em>last_ticket</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Switch.create_additional_ports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Switch.create_additional_ports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates aditional port(s) to switch, from the end of SwitchPortRange
+or from last Port name/number. Assuming all port range have same
+capacity, configured capacity and connector_type</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>quantity (int): quantity of ports to create
+last_ticket (int): ticket number about this requisition</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.SwitchModel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">SwitchModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#SwitchModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.SwitchModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Network switch model representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.SwitchModule">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">SwitchModule</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#SwitchModule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.SwitchModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modular port circuit for switches</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.SwitchPortRange">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">SwitchPortRange</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#SwitchPortRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.SwitchPortRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch model ports template representation.</p>
+<dl class="staticmethod">
+<dt id="ixbr_api.core.models.SwitchPortRange.get_number_of_ports">
+<em class="property">static </em><code class="descname">get_number_of_ports</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#SwitchPortRange.get_number_of_ports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.SwitchPortRange.get_number_of_ports" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Arguments:</dt>
+<dd>model {SwitchModel} &#8211; SwitchModel instance</dd>
+<dt>Returns:</dt>
+<dd>int &#8211; quantity of ports in SwitchPortRange of specified model.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.Tag">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">Tag</code><span class="sig-paren">(</span><em>created</em>, <em>modified</em>, <em>modified_by</em>, <em>description</em>, <em>last_ticket</em>, <em>uuid</em>, <em>reserved</em>, <em>tag</em>, <em>ix</em>, <em>tag_domain</em>, <em>status</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#Tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.Tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.TranslationChannel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">TranslationChannel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#TranslationChannel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.TranslationChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translation port channel representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.models.UplinkChannel">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.models.</code><code class="descname">UplinkChannel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#UplinkChannel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.UplinkChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uplink port channel representation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ixbr_api.core.models.create_tag_by_channel_port">
+<code class="descclassname">ixbr_api.core.models.</code><code class="descname">create_tag_by_channel_port</code><span class="sig-paren">(</span><em>channel_port</em>, <em>initial</em>, <em>limit</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#create_tag_by_channel_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.create_tag_by_channel_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create tags from a given channel_port</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>channel_port: ChannelPort instance
+initial: Bool -&gt; True = Initial approach, create from tag 0
+False = Starts from the last tag in the database
+limit: Integer -&gt; Quantity of instances to create</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ixbr_api.core.models.get_free_ipv4_by_ix">
+<code class="descclassname">ixbr_api.core.models.</code><code class="descname">get_free_ipv4_by_ix</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#get_free_ipv4_by_ix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.get_free_ipv4_by_ix" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the free IPv4Address</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>ix: kwarg -&gt; the owner IX</dd>
+<dt>Returns:</dt>
+<dd>Queryset&lt;IPv4Address&gt;: Queryset conataining free v4 addresses</dd>
+<dt>This funciton is dependent of the following functions:</dt>
+<dd>get_used_ipv4_by_ix</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ixbr_api.core.models.get_free_ipv6_by_ix">
+<code class="descclassname">ixbr_api.core.models.</code><code class="descname">get_free_ipv6_by_ix</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#get_free_ipv6_by_ix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.get_free_ipv6_by_ix" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the free IPv6Address</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>ix: kwarg -&gt; the owner IX</dd>
+<dt>Returns:</dt>
+<dd>Queryset&lt;IPv6Address&gt;: Queryset conataining free v6 addresses</dd>
+<dt>This funciton is dependent of the following functions:</dt>
+<dd>get_used_ipv6_by_ix</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ixbr_api.core.models.get_used_ipv4_by_ix">
+<code class="descclassname">ixbr_api.core.models.</code><code class="descname">get_used_ipv4_by_ix</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#get_used_ipv4_by_ix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.get_used_ipv4_by_ix" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the used IPv4Address</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>ix: kwarg -&gt; the owner IX</dd>
+<dt>Returns:</dt>
+<dd>Queryset&lt;IPv4Address&gt;: Queryset conataining used v4 addresses</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ixbr_api.core.models.get_used_ipv6_by_ix">
+<code class="descclassname">ixbr_api.core.models.</code><code class="descname">get_used_ipv6_by_ix</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/models.html#get_used_ipv6_by_ix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.models.get_used_ipv6_by_ix" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the used IPv6Address</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>ix: kwarg -&gt; the owner IX</dd>
+<dt>Returns:</dt>
+<dd>Queryset&lt;IPv6Address&gt;: Queryset conataining used v6 addresses</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="core-views">
+<h2>Core_views:<a class="headerlink" href="#core-views" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><span class="target" id="module-ixbr_api.core.views.core_views"></span><dl class="class">
+<dt id="ixbr_api.core.views.core_views.BundleEtherListView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.core_views.</code><code class="descname">BundleEtherListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/core_views.html#BundleEtherListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.core_views.BundleEtherListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the Bundle of a IX specified</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>downlink_channel (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;):
+Get all the downlink channel of a IX specified.
+ix (&lt;class &#8216;ixbr_api.core.models.IX&#8217;&gt;): Get the ix from IX models or
+return a 404.
+paginate_by (int): Amount of Bundle that will be listed.
+template_name (str): core/bundle_list.html</dd>
+<dt>returns:</dt>
+<dd><dl class="first last docutils">
+<dt>A dict context with all the Bundle of a IX specified. For example:</dt>
+<dd>{&#8216;bundle&#8217;: &lt;QuerySet [&lt;DownlinkChannel: [sw226-dl]&gt;]&gt;,},
+{&#8216;ix&#8217;: [sp],}</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="ixbr_api.core.views.core_views.BundleEtherListView.get_context_data">
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/core_views.html#BundleEtherListView.get_context_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.core_views.BundleEtherListView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the base implemetnation first to get a context</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ixbr_api.core.views.core_views.BundleEtherListView.model">
+<code class="descname">model</code><a class="headerlink" href="#ixbr_api.core.views.core_views.BundleEtherListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">DownlinkChannel</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.core_views.HomeView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.core_views.</code><code class="descname">HomeView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/core_views.html#HomeView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.core_views.HomeView" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all IX at /core/home</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>context (dic): Dictionary that return a set of informations
+to be printed.
+template_name (str): core/home.html.</dd>
+<dt>returns:</dt>
+<dd>A dict context with all the IXs. For example:
+{&#8216;ix_list&#8217; : &lt;QuerySet [&lt;IX: [cpv]&gt;, &lt;IX: [rj]&gt;, &lt;IX: [sp]&gt;]&gt;}</dd>
+</dl>
+<dl class="attribute">
+<dt id="ixbr_api.core.views.core_views.HomeView.model">
+<code class="descname">model</code><a class="headerlink" href="#ixbr_api.core.views.core_views.HomeView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">IX</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="as-views">
+<h2>AS_views:<a class="headerlink" href="#as-views" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><span class="target" id="module-ixbr_api.core.views.as_views"></span><dl class="class">
+<dt id="ixbr_api.core.views.as_views.ASDetailView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.as_views.</code><code class="descname">ASDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/as_views.html#ASDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.as_views.ASDetailView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detail of a ASN</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>context (dic): Dictionary that return a set of informations
+to be printed.
+as_object (&lt;class &#8216;ixbr_api.core.models.ASN&#8217;&gt;): Get the asn from ASN
+models or return a 404.
+ix_list (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get queryset with
+filtered IXs from a specified ASN.</dd>
+<dt>returns:</dt>
+<dd>A dict context with all the IXs from ASN number and all informations
+about ASN specified. For example:
+{&#8216;object&#8217; : [AS62000: [wolfe-morrison: Wolfe-Morrison]]},
+{&#8216;ix_list&#8217;, &lt;QuerySet [&lt;IX: [sp]&gt;]&gt;}</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.as_views.ASIXDetailView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.as_views.</code><code class="descname">ASIXDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/as_views.html#ASIXDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.as_views.ASIXDetailView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detail of a ASN from a IX</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>context (dic): Dictionary that return a set of informations
+to be printed.
+ports_in_ix (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get the ports
+of the switches in the given ix.
+customer_channels (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get the
+customer channels of the given ix based on the ports.
+customer_channels (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Filter
+to get the customer channels that have some service vinculated to
+the given asn.
+channel_services (list): Services from a PIX.
+ix (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get the IX of the
+in the given ix.
+current_asn (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get the ASN
+of the in the given ASN.
+asn_stats (dict): All services stats about this asn.
+asn_pix_channels (dic): DIctionary that contains a set of informations
+of PIXs from a IX specified.
+contacts_map_list (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get the
+contacts of a IX specified and a ASN specified.</dd>
+<dt>returns:</dt>
+<dd>A dict context with all the IXs from ASN number and all informations
+about ASN specified. For example:
+{&#8216;asn&#8217; : [AS62000: [wolfe-morrison: Wolfe-Morrison]] }, {&#8216;ix&#8217;, [sp]},
+{&#8216;channel_services&#8217; : {&#8216;Mcbride&#8217;: {&lt;CustomerChannel: 89504f27-3cd2-4d90-bd9d-5c1376edd798 [AS62000 15]&gt;:
+[[&lt;MLPAv4: a9ce8743-d37a-4143-873d-d113a1d2f778 [as62000-mlpav4 AS62000 [[sp]-4072:
+[sw226-dl]]:988]&gt;], &lt;QuerySet []&gt;, &lt;QuerySet []&gt;]}}}
+{&#8216;asn_pix_channels&#8217; : {&lt;PIX: [IX sp: PIX Mcbride]&gt;: &lt;QuerySet [&lt;CustomerChannel: 89504f27-3cd2-4d90-bd9d-5c1376edd798 [AS62000 15]&gt;]&gt;}}
+{&#8216;mlpav4_total&#8217;: 3},
+{&#8216;mlpav6_total&#8217;:2},
+{&#8216;bilateral_total&#8217;: 1},
+{&#8216;organization_contacts&#8217; : [AS[AS62000: [wolfe-morrison: Wolfe-Morrison]]: [sp]: [<a class="reference external" href="mailto:cgomez&#37;&#52;&#48;bennett&#46;biz">cgomez<span>&#64;</span>bennett<span>&#46;</span>biz</a>: Laura Bell]]}</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.as_views.ASSearchView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.as_views.</code><code class="descname">ASSearchView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/as_views.html#ASSearchView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.as_views.ASSearchView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search a ASN</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>asn (int): ASN desired passed by parameter
+as_object (&lt;class &#8216;ixbr_api.core.models.ASN&#8217;&gt;): Get the asn from ASN
+models or ask to add the AS.</dd>
+<dt>returns:</dt>
+<dd>If the search was successful, returns to the as detail with ASN number,
+else ask to add the AS.</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="form-views">
+<h2>Form_views:<a class="headerlink" href="#form-views" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><span class="target" id="module-ixbr_api.core.views.form_views"></span><dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddASContactFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddASContactFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddASContactFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddASContactFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new AS instance in the system.</p>
+<p>In order to add a new AS, several data is required (i.e. contacts,
+IX and organization). These data are collected from the ticket system
+and used create the new AS instance.
+This class is used by:</p>
+<blockquote>
+<div><ul class="simple">
+<li>ixbr_api/core/urls.py (directly)</li>
+<li>ixbr_api/templates/as/as_add.html (as url)</li>
+<li>ix-api/ixbr_api/templates/forms/add_as_contact_form.html (as url)</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddBilateralFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddBilateralFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddBilateralFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddBilateralFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to add</dt>
+<dd>bilateral service</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditPortPhysicalInterfaceForm):</dt>
+<dd>EditPortPhysicalInterfaceForm</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form</p>
+</dd>
+<dt>Returns:</dt>
+<dd>If Bilateral service was successfully added to the ASN, it will return
+a successful message,
+otherwise it will return a message with the error.</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddBilateralNewChannelFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddBilateralNewChannelFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddBilateralNewChannelFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddBilateralNewChannelFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to add</dt>
+<dd>bilateral service on an arbitrary channel in a given IX</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditPortPhysicalInterfaceForm):</dt>
+<dd>EditPortPhysicalInterfaceForm</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form</p>
+</dd>
+<dt>Returns:</dt>
+<dd>If Bilateral service was successfully added to the ASN, it will return
+a successful message,
+otherwise it will return a message with the error.</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddContactFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddContactFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddContactFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddContactFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to add</dt>
+<dd>a new contact</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+</dl>
+<p>form_class (Instance of forms.AddContactForm): AddContactForm
+http_method_names (list): List containing the request</p>
+<blockquote>
+<div>types</div></blockquote>
+<dl class="last docutils">
+<dt>initial (dict): Boot Dictionary, if you need to start a field with a</dt>
+<dd>value</dd>
+<dt>template_name (str): Name of the template used for this</dt>
+<dd>form</dd>
+<dt>last_ticket (int): Last ticket of contact, this data comes from the</dt>
+<dd>form when it is submitted</dd>
+<dt>name (str): Name of contact, this data comes from the form when it is</dt>
+<dd>submitted</dd>
+<dt>email (str): Email of contact, this data comes from the form when it</dt>
+<dd>is submitted</dd>
+<dt>noc (Bool): True if the type of contact is NOC, else, is False, this</dt>
+<dd>data comes from the form when it is submitted</dd>
+<dt>adm (Bool): True if the type of contact is ADM, else, is False, this</dt>
+<dd>data comes from the form when it is submitted</dd>
+<dt>peer (Bool): True if the type of contact is PEER, else, is False, this</dt>
+<dd>data comes from the form when it is submitted</dd>
+<dt>com (Bool): True if the type of contact is COM, else, is False, this</dt>
+<dd>data comes from the form when it is submitted</dd>
+<dt>contactsmap_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</dt>
+<dd>ContactsMap by the primary key passed by paramete</dd>
+<dt>contact (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): New created</dt>
+<dd>contact</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><blockquote class="first">
+<div><dl class="docutils">
+<dt>If the contact has been added successfully, it will return a</dt>
+<dd>successful message,</dd>
+</dl>
+</div></blockquote>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddCustomerChannelFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddCustomerChannelFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddCustomerChannelFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddCustomerChannelFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to add a new channel</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">context (dict): Dictionary with information to be printed on the screen
+form_class (Instance of forms.AddCustomerChannelForm): Instance of the</p>
+<blockquote>
+<div>AddCustomerChannelForm class, this class contains all form information</div></blockquote>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+phone_object (object): New object of the models.Phone class, with all</p>
+<blockquote>
+<div>the data of a phone</div></blockquote>
+<p>number (int): Phone number entered by user in form
+category (str): Category selected by the user in the form
+last_ticket (int): Last ticket entered by the user in the form
+contact (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a Contact by</p>
+<blockquote class="last">
+<div>the primary key passed by parameter</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the new channel has been added successfully, it will return a</dt>
+<dd>successful message,</dd>
+</dl>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddDIOToPIXFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddDIOToPIXFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddDIOToPIXFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddDIOToPIXFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a DIO to a PIX</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">form_class (&lt;class &#8216;ixbr_api.core.forms.AddDIOToPIXForm&#8217;&gt;):
+Class that contains the form that adds a new DIO.
+http_method_names (list): Requisition methods
+context (dict): Dictionary that return a set of informations</p>
+<blockquote>
+<div>to be printed.</div></blockquote>
+<p class="last">template_name (str): forms/add_dio_form.html</p>
+</dd>
+<dt>returns:</dt>
+<dd>If the request method is a get, will return a dict context with
+the fields of form. If method requisition is different of get,
+return success message case the DIO was successfully added or
+error message case DIO was not added</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddIXtoASNFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddIXtoASNFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddIXtoASNFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddIXtoASNFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, redenrize and
+submit the form to edit a port channel</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to</dt>
+<dd>be printed on the screen</dd>
+<dt>form_class (Instance of forms.EditPortPhysicalInterfaceForm):</dt>
+<dd>EditPortPhysicalInterfaceForm</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a</p>
+<blockquote>
+<div>field with a value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+ixs_by_asn (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get all the</p>
+<blockquote>
+<div>ContactsMap by the asn passed by paramete</div></blockquote>
+<dl class="last docutils">
+<dt>ixs (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get all IXs that the</dt>
+<dd>ASN does not have</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>If IX was successfully added to the ASN, it will return a successful</dt>
+<dd>message, otherwise it will return a message with the error.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddMACServiceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddMACServiceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddMACServiceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddMACServiceFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>To add a mac to a service</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">form_class (&lt;class &#8216;ixbr_api.core.forms.AddMACServiceForm&#8217;&gt;):
+Class that contains the form to add a mac to a service.
+http_method_names (list): Requisition methods
+context (dic): Dictionary that return a set of informations</p>
+<blockquote>
+<div>to be printed.</div></blockquote>
+<p class="last">address (str): Get the Mac Address.
+last_ticket (int): Get the last_ticket.
+description (str): Get the description of a MAC Address.
+template_name (str): forms/add_mac_service_form.html</p>
+</dd>
+<dt>returns:</dt>
+<dd>If the request method is a get, will return a dict context with
+the fields of form. If method requisition is different of get,
+return success message case the mac was successfully added or
+error message case mac was not added</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddPhoneFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddPhoneFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddPhoneFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddPhoneFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to add a new phone</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">context (dict): Dictionary with information to be printed on the screen
+form_class (Instance of forms.PhoneForm): Instance of the PhoneForm</p>
+<blockquote>
+<div>class, this class contains all form information</div></blockquote>
+<p>http_method_names (list): List containing the request types
+template_name (str): Name of the template used for this form
+phone (object): New object of the models. Phone class, with all</p>
+<blockquote>
+<div>the data of a phone</div></blockquote>
+<p>number (int): Phone number entered by user in form
+category (str): Category selected by the user in the form
+last_ticket (int): Last ticket entered by the user in the form
+contact (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a Contact by</p>
+<blockquote class="last">
+<div>the primary key passed by parameter</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd>A successful message if the phone has been added or an error message
+otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddPixToAsnFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddPixToAsnFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddPixToAsnFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddPixToAsnFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to add a new channel</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">context (dict): Dictionary with information to be printed on the screen
+form_class (Instance of forms.AddCustomerChannelForm): Instance of the</p>
+<blockquote>
+<div>AddCustomerChannelForm class, this class contains all form information</div></blockquote>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+phone_object (object): New object of the models.Phone class, with all</p>
+<blockquote>
+<div>the data of a phone</div></blockquote>
+<p>number (int): Phone number entered by user in form
+category (str): Category selected by the user in the form
+last_ticket (int): Last ticket entered by the user in the form
+contact (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a Contact by</p>
+<blockquote class="last">
+<div>the primary key passed by parameter</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the new channel has been added successfully, it will return a</dt>
+<dd>successful message,</dd>
+</dl>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.AddPortChannelFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">AddPortChannelFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#AddPortChannelFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.AddPortChannelFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to</dt>
+<dd>edit a port channel</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditPortPhysicalInterfaceForm):</dt>
+<dd>EditPortPhysicalInterfaceForm</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+pix_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a PIX by</p>
+<blockquote>
+<div>the primary key passed by paramete</div></blockquote>
+<dl class="last docutils">
+<dt>switch (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get all the</dt>
+<dd>Switches by the pix passed by paramete</dd>
+<dt>ports (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get all the ports</dt>
+<dd>free of all the switches of a pix</dd>
+<dt>customer_channel (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</dt>
+<dd>CustomerChannel by the primary key passed by paramete</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the port has been successfully added to the customer channel, it</dt>
+<dd>will return a successful message,</dd>
+</dl>
+<p class="last">otherwise it will return an message with error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.CreateSwitchFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">CreateSwitchFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#CreateSwitchFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.CreateSwitchFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, redenrize and submit the form to
+edit a port channel</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.DeletePhoneView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">DeletePhoneView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#DeletePhoneView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.DeletePhoneView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to delete a phone</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>phone (str): Primary key of the phone you want to delete, passed by</dt>
+<dd>kwargs</dd>
+<dt>phone_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</dt>
+<dd>Contact by the primary key passed by the GET method</dd>
+</dl>
+<p class="last">data (dic): Dictionary with information to be printed on the screen</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the phone has been deleted successfully, it will return a</dt>
+<dd>successful message,</dd>
+</dl>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.DeletePortChannelView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">DeletePortChannelView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#DeletePortChannelView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.DeletePortChannelView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to delete a port of customer channel</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">data (dic): Dictionary with all information to be printed on the screen
+port_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a Port by</p>
+<blockquote>
+<div>the primary key passed by paramete</div></blockquote>
+<dl class="last docutils">
+<dt>customer_channel (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</dt>
+<dd>CustomerChannel by the primary key passed by paramete</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the port was deleted from the customer channel successfully, it</dt>
+<dd>will return an error message,</dd>
+</dl>
+<p class="last">otherwise it will return a message with the error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditCixTypeFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditCixTypeFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditCixTypeFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditCixTypeFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, render and submit the form to edit a</dt>
+<dd>channel CIX Type</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+</dl>
+<p>form_class (Instance of forms.EditCixTypeForm): EditCixTypeForm
+http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the channel CIX Type has been edited successfully, it will return a</dt>
+<dd>successful message,</dd>
+</dl>
+<p class="last">otherwise it will return a message with the error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditConfiguredCapacityPortFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditConfiguredCapacityPortFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditConfiguredCapacityPortFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditConfiguredCapacityPortFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to</dt>
+<dd>edit configured capacity from a given port</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dict): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditConfiguredCapacityPort):</dt>
+<dd>EditConfiguredCapacityPort</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form</p>
+</dd>
+<dt>Returns:</dt>
+<dd>If edition of configured port was successfull, it will return a
+successful message, otherwise it will return a message with the error.</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditContactFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditContactFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditContactFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditContactFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to edit a contact</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">context (dic): Dictionary with information to be printed on the screen
+form_class (Instance of forms.EditContactForm): Instance of the</p>
+<blockquote>
+<div>EditContactForm class, this class contains all form information</div></blockquote>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+name (str): New contact name entered by the user in the form
+email (str): New contact email entered by the user in the form
+last_ticket (int): New contact last ticket entered by the user in the</p>
+<blockquote>
+<div>form</div></blockquote>
+<dl class="docutils">
+<dt>contact_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</dt>
+<dd>Contact by the primary key passed by parameter</dd>
+<dt>new_contact (object): New object of the models.Contact class, with all</dt>
+<dd>modifications</dd>
+<dt>contacsmap_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</dt>
+<dd>ContactsMap by the primary key passed by parameter</dd>
+</dl>
+<p class="last">type_contact (str): The contact type, passed by parameter</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>If the old contact was deleted successfully and the new contact with</dt>
+<dd>the modifications was successfully added, it will return a success
+message, else it will return a message with the error occurred</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditContactsMapFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditContactsMapFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditContactsMapFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditContactsMapFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to edit a contactsmap</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><p class="first">context (dic): Dictionary with information to be printed on the screen
+form_class (Instance of forms.EditContactForm): ContactsMapEditForm
+http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+contactsmap_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</p>
+<blockquote>
+<div>ContactsMap by the primary key passed by paramete</div></blockquote>
+<dl class="last docutils">
+<dt>contacts (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get all contacts</dt>
+<dd>from an ix and asn passed by parameter</dd>
+<dt>noc_contact (Relationship with the contact): Relationship with the</dt>
+<dd>contact, noc contact is a type of contact</dd>
+<dt>adm_contact (Relationship with the contact): Relationship with the</dt>
+<dd>contact, adm contact is a type of contact</dd>
+<dt>peer_contact (Relationship with the contact): Relationship with the</dt>
+<dd>contact, peer contact is a type of contact</dd>
+<dt>com_contact (Relationship with the contact): Relationship with the</dt>
+<dd>contact, com contact is a type of contact</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the contactsmap has been edited successfully, it will return a</dt>
+<dd>successful message,</dd>
+</dl>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditDioPortFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditDioPortFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditDioPortFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditDioPortFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to edit</dt>
+<dd>a DIO Port.</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>form_class (Instance of forms.EditDioPortForm):</dt>
+<dd>EditDioPortForm</dd>
+</dl>
+<p class="last">http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a
+value template_name (str): Name of the template used for this form</p>
+</dd>
+<dt>Returns:</dt>
+<dd>If association was successfully concluded, it will return a successful
+message, otherwise it will return a message with the error.</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditMLPAv4FormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditMLPAv4FormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditMLPAv4FormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditMLPAv4FormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, to change the IPv4 address of an</dt>
+<dd>MLPAv4 service</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): It is a dictionary of information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditMLPAv4Form): Instance of the</dt>
+<dd>EditMLPAv4Form class, this class contains all form information</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+mlpav4 (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a MLPAv4 by</p>
+<blockquote class="last">
+<div>the primary key passed by parameter</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the IPv4 address was changed successfully, it will return a</dt>
+<dd>successful message, else it will return a</dd>
+</dl>
+<p class="last">message with the error that occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditMLPAv6FormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditMLPAv6FormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditMLPAv6FormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditMLPAv6FormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, to change the IPv6 address of an</dt>
+<dd>MLPAv6 service</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): It is a dictionary of information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditMLPAv6Form): Instance of the</dt>
+<dd>EditMLPAv6Form class, this class contains all form information</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+mlpav6 (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a MLPAv6 by</p>
+<blockquote class="last">
+<div>the primary key passed by parameter</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>If the IPv6 address was changed successfully, it will return a</dt>
+<dd>successful message, else it will return a message with the error
+that occurred</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditOrganizationFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditOrganizationFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditOrganizationFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditOrganizationFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, redenrize and submit
+the form to edit an organization.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dict): Dictionary with all information</dt>
+<dd>to be printed on the screen</dd>
+</dl>
+<p>form_class (Instance of forms.EditOrganizationForm): EditOrganizationForm
+http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field</p>
+<blockquote>
+<div>with a value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+organization_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</p>
+<blockquote>
+<div>Organization by the primary key passed by paramete</div></blockquote>
+<dl class="last docutils">
+<dt>name (str): Name of the organization, this data comes from the</dt>
+<dd>form when it is submitted</dd>
+<dt>shortname (str): Shortname of organization, this data comes from the</dt>
+<dd>form when it is submitted</dd>
+<dt>url (str): URL of organization, this data comes from the form when</dt>
+<dd>it is submitted</dd>
+<dt>address (str): Address of organization, this data comes from the for</dt>
+<dd>when it is submitted</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>If the organization has been edited successfully,
+it will return a successful message, else it will return
+a message with the error occurred.</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditPhoneFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditPhoneFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditPhoneFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditPhoneFormView" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class has, as main objective, to edit a phone</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with information to be printed on the screen</dt>
+<dd>form_class (Instance of forms.PhoneForm): Instance of the PhoneForm
+class, this class contains all form information</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a
+value template_name (str): Name of the template used for this form
+old_phone (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a Phone</p>
+<blockquote>
+<div>by the primary key passed by parameter</div></blockquote>
+<dl class="last docutils">
+<dt>new_phone (object): New object of the models.Phone class, with all</dt>
+<dd>modifications</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>If the old phone was successfully removed and the new one successfully</dt>
+<dd>added, it will return a successful message,
+else a message with the error occurred</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditPortPhysicalInterfaceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditPortPhysicalInterfaceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditPortPhysicalInterfaceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditPortPhysicalInterfaceFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to</dt>
+<dd>edit a port physical interface</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditPortPhysicalInterfaceForm):</dt>
+<dd>EditPortPhysicalInterfaceForm</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p>template_name (str): Name of the template used for this form
+port_object (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a Port by</p>
+<blockquote>
+<div>the primary key passed by paramete</div></blockquote>
+<dl class="last docutils">
+<dt>physical_interface (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a</dt>
+<dd>PhysicalInterface by the primary key passed by paramete</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the port physical interface has been edited successfully, it will</dt>
+<dd>return a successful message,</dd>
+</dl>
+<p class="last">otherwise it will return a message with the error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditServicePrefixLimitFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditServicePrefixLimitFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditServicePrefixLimitFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditServicePrefixLimitFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to</dt>
+<dd>edit the prefix limit of service</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditServicePrefixLimitForm):</dt>
+<dd>EditServicePrefixLimitForm</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form
+service_list (list): List of the services</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the prefix limit of service has been edited successfully, it will</dt>
+<dd>return a successful message,</dd>
+</dl>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditServiceStatusFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditServiceStatusFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditServiceStatusFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditServiceStatusFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to</dt>
+<dd>edit the status of service</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+<dt>form_class (Instance of forms.EditServiceStatusForm):</dt>
+<dd>EditServiceStatusForm</dd>
+</dl>
+<p>http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form
+service_list (list): List of the services</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the status of service has been edited successfully, it will return</dt>
+<dd>a successful message,</dd>
+</dl>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.EditServiceTagFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">EditServiceTagFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#EditServiceTagFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.EditServiceTagFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to</dt>
+<dd>edit the tag of service</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dic): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+</dl>
+<p>form_class (Instance of forms.EditServiceTagForm): EditServiceTagForm
+http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form
+service_list (list): List of the services</p>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first docutils">
+<dt>If the tag of service has been edited successfully, it will return a</dt>
+<dd>successful message,</dd>
+</dl>
+<p class="last">else it will return a message with the error occurred</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.MACDeleteView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">MACDeleteView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#MACDeleteView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.MACDeleteView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a MAC
+Attributes:</p>
+<blockquote>
+<div><p>mac (str): MAC Address.
+service (str): UUID of service.
+ma (&lt;class &#8216;django.db.models.query.QuerySet&#8217;&gt;): Get a MAC speciefied.
+data (dic): Dictionary that return the result</p>
+<blockquote>
+<div>to be printed.</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>returns:</dt>
+<dd><p class="first">If the mac was deleted successfully, will return a dictionary how:</p>
+<p>{
+&#8216;result&#8217; : &#8216;Your Mac was deleted successfully&#8217;
+}</p>
+<p>Else, will return a dictionary how:</p>
+<p class="last">{
+&#8216;result&#8217; : &#8216;error&#8217;
+}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.MigrateSwitchFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">MigrateSwitchFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#MigrateSwitchFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.MigrateSwitchFormView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>This class has, as main objective, redenrize and submit the form to</dt>
+<dd>migrate the switch ports to the new switch.</dd>
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>context (dict): Dictionary with all information to be printed on the</dt>
+<dd>screen</dd>
+</dl>
+<p>form_class (Instance of forms.MigrateSwitchForm):MigrateSwitchForm
+http_method_names (list): List containing the request types
+initial (dict): Boot Dictionary, if you need to start a field with a</p>
+<blockquote>
+<div>value</div></blockquote>
+<p class="last">template_name (str): Name of the template used for this form</p>
+</dd>
+<dt>Returns:</dt>
+<dd>If migration of switch was successfull, it will return a
+successful message, otherwise it will return a message with the error.</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.ReleaseIPResourceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">ReleaseIPResourceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#ReleaseIPResourceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.ReleaseIPResourceFormView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.ReleasePortResourceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">ReleasePortResourceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#ReleasePortResourceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.ReleasePortResourceFormView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.ReleaseTagResourceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">ReleaseTagResourceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#ReleaseTagResourceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.ReleaseTagResourceFormView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.ReserveIPResourceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">ReserveIPResourceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#ReserveIPResourceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.ReserveIPResourceFormView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.ReservePortResourceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">ReservePortResourceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#ReservePortResourceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.ReservePortResourceFormView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ixbr_api.core.views.form_views.ReserveTagResourceFormView">
+<em class="property">class </em><code class="descclassname">ixbr_api.core.views.form_views.</code><code class="descname">ReserveTagResourceFormView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ixbr_api/core/views/form_views.html#ReserveTagResourceFormView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ixbr_api.core.views.form_views.ReserveTagResourceFormView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Docstrings</a><ul>
+<li><a class="reference internal" href="#models">Models:</a></li>
+<li><a class="reference internal" href="#core-views">Core_views:</a></li>
+<li><a class="reference internal" href="#as-views">AS_views:</a></li>
+<li><a class="reference internal" href="#form-views">Form_views:</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="docker_ec2.html"
+                        title="previous chapter">Developing with Docker</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/docstring.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="docker_ec2.html" title="Developing with Docker"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">IX.br API 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, NIC.br.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

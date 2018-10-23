@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="title">
+        <h2>Add New contact for ContactsMap: {{contactsmap}}</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row">
+            <form class="django-form" action="{% url 'core:add_contact_form' contactsmap %}" method="post" style="min-width:100%;">
+                {% csrf_token %}
+                <table>
+                    <div class="row">
+                        <div class="col-md-2">
+                          <label class="required">Ticket: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.last_ticket}}
+                        </div>
+                        <div class="col-md-2">
+                          <label class="required">Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.name}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:30px;">
+                        <div class="col-md-2">
+                          <label class="required">Email: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.email}}
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="row" style="margin-top:30px;">
+                        <div class="col-md-12">
+                          Please select the type (s) of contact:
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-md-3">
+                          <label>Noc: </label>
+                          {{form.noc}}
+                        </div>
+                        <div class="col-md-3">
+                          <label>Adm: </label>
+                          {{form.adm}}
+                        </div>
+                        <div class="col-md-3">
+                          <label>Peer: </label>
+                          {{form.peer}}
+                        </div>
+                        <div class="col-md-3">
+                          <label>Com: </label>
+                          {{form.com}}
+                        </div>
+                    </div>
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

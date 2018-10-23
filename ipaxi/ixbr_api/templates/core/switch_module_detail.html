@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="title">
+        <h2>Switch Module Detail</h2>
+    </div>
+    <div class="col-md-12 content">
+        <table id="switch-module-detail-table" class="table table-striped borderless table-resposive" width="100%">
+                <tr>
+                    <td><strong>Module model</strong></td>
+                    <td>{{module.model}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Vendor</strong></td>
+                    <td>{{module.vendor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Ports name format</strong></td>
+                    <td>{{module.name_format}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Ports quantity</strong></td>
+                    <td>{{module.port_quantity}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Ports capacity</strong></td>
+                    <td>{{module.capacity}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Ports connector type</strong></td>
+                    <td>{{module.connector_type}}</td>
+                </tr>
+        </table>
+        <p class="text-right">
+
+            <i class="fa fa-minus-circle no_display text-right" style="color:red" aria-hidden="true" title="Remove Module" onclick="delete_module('{{module}}', '{{module.pk}}')" onMouseOver="this.style.cursor='pointer'"> 
+            Remove Switch Module
+            </i>
+
+        </p>
+    </div>
+</div>

@@ -1,0 +1,274 @@
+body {
+  min-width: 240px; }
+
+h1 {
+  margin-bottom: 15px; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+input[type=number] {
+  -moz-appearance: textfield; }
+
+table td {
+  border-top: none !important; }
+
+.asn-title-container span {
+  background-color: #7C5400;
+  color: #fff;
+  border-radius: 10px;
+  padding: 5px; }
+
+.beige-container-information {
+  background-color: #D8C090;
+  padding: 15px;
+  color: none;
+  border-radius: 10px; }
+
+.hidden {
+  display: none; }
+
+.italic {
+  font-style: italic; }
+
+.bold {
+  font-weight: bold; }
+
+.hidden-link-title-header {
+  color: #292b2c; }
+
+.asn-title-container,
+.ix-fullname-title-container {
+  margin: 0px 15px 0px 15px; }
+
+.ix-fullname-title-container span {
+  background-color: #081D4F;
+  color: #fff;
+  border-radius: 10px;
+  padding: 5px; }
+
+.small {
+  font-size: small; }
+
+.sub-title-with-margin {
+  align-content: inherit;
+  margin-top: 3em; }
+
+.title-container {
+  margin: 0px 15px 0px 15px;
+  width: 100%;
+  float: left;
+  border-left: 10px solid #7C5400; }
+
+.title-header {
+  margin: 0px 7px 0px 15px;
+  font-weight: 900; }
+
+#go-to-top-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #292b2c;
+  padding: 15px;
+  color: #fff;
+  border-radius: 10px; }
+
+#go-to-top-btn:hover {
+  background-color: #555;
+  /* Add a dark-grey background on hover */ }
+
+#asModalHeader {
+  align-items: flex-start; }
+
+#asModalHeader h2 {
+  font-size: 1.6rem; }
+
+.margintop30 {
+  margin-top: 30px; }
+
+.margintop16 {
+  margin-top: 16px; }
+
+.title-contact {
+  padding-bottom: 5px;
+  margin-top: 20px; }
+  .title-contact h6 {
+    margin: 0; }
+
+.border-contacts {
+  width: 100%;
+  border-bottom: 2px dotted black; }
+
+#search-asn .btn {
+  right: 0; }
+
+.filter-displaying-option {
+  margin-top: 15px; }
+
+label.required:after {
+  content: "*"; }
+
+.stats-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer; }
+
+.stats-button:focus {
+  outline: none; }
+
+#id_ix_list .jumbotron, #id_whois .jumbotron {
+  max-height: 640px;
+  overflow-y: scroll; }
+
+.jumbotron::-webkit-scrollbar {
+  display: none; }
+
+.card-body-project {
+  padding-left: 20px; }
+
+.card-link-project {
+  color: #0275d8;
+  padding-bottom: 10px; }
+
+.channel-list {
+  background-color: #697595;
+  padding: none;
+  color: #fff;
+  border-radius: 10px; }
+
+.channel-list .status-label {
+  background-color: #697595;
+  padding: none;
+  color: #fff;
+  border-radius: 10px; }
+
+.contact-detail {
+  align-content: inherit;
+  margin-top: 2em !important;
+  margin-left: -1em !important; }
+
+.contacts-list .contact-description {
+  align-content: inherit;
+  margin-top: 1em;
+  background-color: #D8C090;
+  padding: none;
+  color: none;
+  border-radius: 10px; }
+
+.service-description {
+  align-content: inherit;
+  margin-top: 1em; }
+
+.service-description a {
+  color: inherit; }
+
+#ip-list-table {
+  margin: 30px 15px 0px 15px; }
+
+.more-ip-detail {
+  width: 100%;
+  background-color: #D3D3D3;
+  height: 48px; }
+
+.ip-detail-paragraph {
+  margin-bottom: 0px;
+  margin-top: 0px; }
+
+#ip-list-table .more-ip-info-detail {
+  display: none; }
+
+#switch-detail-list-table {
+  margin-top: 30px; }
+
+#switch-detail-list-table .info-customer,
+#switch-detail-list-table .info-infrastructure {
+  display: none;
+  color: #fff; }
+  #switch-detail-list-table .info-customer #switch-detail-list-table .info-infrastructure td,
+  #switch-detail-list-table .info-infrastructure #switch-detail-list-table .info-infrastructure td {
+    padding: 15px !important; }
+
+#switch-detail-list-table .box-customer,
+#switch-detail-list-table .box-infrastructure {
+  background-color: #697595;
+  height: 72px;
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 15px; }
+  #switch-detail-list-table .box-customer #switch-detail-list-table .port-customer-status-informations,
+  #switch-detail-list-table .box-infrastructure #switch-detail-list-table .port-customer-status-informations {
+    color: #fff; }
+
+.alert_characters {
+  font-size: 10px;
+  color: #696969; }
+
+a.white-link, a.white-link:hover, a.white-link:active, a.white-link:visited {
+  color: white; }
+
+.pix-set, .cix-set {
+  margin-top: 50px; }
+
+.pix-info, .cix-info {
+  padding-left: 15px;
+  padding-top: 10px; }
+
+.pix-info-son, .cix-info-son {
+  margin: 10px;
+  padding: 10px;
+  background-color: #697595;
+  border-radius: 10px;
+  font-size: small;
+  font-weight: bold; }
+  .pix-info-son .data-switch, .cix-info-son .data-switch {
+    color: #fff; }
+  .pix-info-son .pix-info-link, .cix-info-son .pix-info-link {
+    color: #fff;
+    text-decoration: underline; }
+
+.pix-info-son > p, .cix-info-son > p {
+  margin-bottom: 5px; }
+
+#whoisContent {
+  bottom: 0;
+  position: relative;
+  overflow: auto;
+  max-height: 85%; }
+
+#whoisContent table {
+  margin: 0; }
+
+#whoisContent td > div {
+  min-height: 1em;
+  font-family: monospace;
+  line-height: 1em; }
+
+#whoisContent td:nth-child(1),
+#whoisContent td:nth-child(2) {
+  font-weight: bold; }
+
+tr.even > td:nth-child(1),
+tr.even > td:nth-child(2) {
+  background-color: #bbb;
+  color: #292b2c; }
+
+tr.odd > td:nth-child(1),
+tr.odd > td:nth-child(2) {
+  background-color: #333;
+  color: #fff; }
+
+.is-invalid {
+  border-color: #dc3545; }
+
+.invalid-feedback {
+  min-height: 24px;
+  color: red; }
+
+/*# sourceMappingURL=project.css.map */

@@ -1,0 +1,11 @@
+# Local development dependencies go here
+flask==0.12.2
+Flask-RESTful==0.3.6
+urllib5==5.0.0
+requests==2.18.3
+jsonschema==2.6.0
+pytz==2017.2
+Flask-MySQLdb==0.2.0
+pytest==3.2.1
+coverage==4.4.1
+unittest-xml-reporting==2.1.0

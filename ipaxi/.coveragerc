@@ -1,0 +1,20 @@
+[run]
+include =
+    ixbr_api/*
+    core/*
+
+omit =
+    *migrations*
+    *tests*
+    *html*
+    core/management/*
+    core/templatetags/*
+    ixbr_api/core/management/commands/createfakedata.py
+    ixbr_api/core/management/commands/createsantamaria.py
+    ixbr_api/core/utils/makefake.py
+    ixbr_api/core/utils/make_santamariadata.py
+    ixbr_api/core/utils/ticket_fake.py
+    ixbr_api/core/templatetags/core_filters.py
+
+plugins =
+    django_coverage_plugin

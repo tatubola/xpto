@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="title">
+        <h2>Create IX</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row" id=form-display>
+            <form class="django-form-tag" action="{% url 'core:create_ix_form' %}" method="post" style="min-width:100%;">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-3 bold">{{ field.label_tag }}</div>
+                            <div class="col-lg-4">{{field}}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+        <div class="modal-body my-3" id="tag-load" style="display:none;">
+            <div class="d-flex flex-sm-column align-items-center">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-{{ message.tags }}{% else %}alert-warning{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

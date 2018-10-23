@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="title">
+        <h2>Edit Contact: {{contact}}</h2>
+    </div>
+    <div class="col-md-12 content">
+   	    {% if messenger == 'success' %}
+   	        <div class="alert alert-success">{{messenger}}</div>
+   	    {% else %}
+   	        <div class="alert alert-danger">{{messenger}}</div>
+   	    {% endif %}
+    </div>
+</div>

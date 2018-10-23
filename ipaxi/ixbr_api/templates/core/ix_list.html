@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}IX{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Internet Exchanges</h2>
+
+  <table class="table-striped" width="100%">
+    <thead>
+    	<tr>
+    	   <th>CODE</th>
+    	   <th>SHORTNAME</th>
+    	   <th>FULLNAME</th>
+    	   <th>IPv4 PREFIX</th>
+    	   <th>IPv6 PREFIX</th>
+    	   <th>MANAGEMENT PREFIX</th>
+    	</tr>
+    </thead>
+    
+    <tbody>
+      {% for ix in ix_list %}
+      <tr id='list-group-item'>
+          <td><a id='ixlink' href="{% url 'core:ix-detail' ix.code %}" ><b>{{ ix.code }}</b></a></td>
+          <td>{{ ix.shortname }}</td>
+          <td>{{ ix.fullname }}</td>
+          <td>{{ ix.ipv4_prefix}}</td>
+          <td>{{ ix.ipv6_prefix}}</td>
+          <td>{{ ix.management_prefix}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+  </table>
+</div>
+{% endblock content %}

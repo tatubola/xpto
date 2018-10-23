@@ -1,0 +1,18 @@
+Participante(
+    asn={{ asn }},
+    razao_social="{{ razao_social }}",
+    cnpj="{{ cnpj }}",
+    responsavel="{{ responsavel }}",
+    endereco_rua="{{ enredeco_rua }}",
+    endereco_numero="{{ endereco_numero if endereco_numero != '' else 'N/A' }}",
+    endereco_complemento="{{ endereco_complemento }}",
+    endereco_bairro="{{ endereco_bairro }}",
+    endereco_cep="{{ endereco_cep }}",
+    endereco_cidade="{{ endereco_cidade }}",
+    endereco_estado="{{ endereco_estado }}",
+    telefone_numero="{{ telefone_numero }}",
+    telefone_ddd="{{ telefone_ddd }}",
+    telefone_ramal="{{ telefone_ramal }}",
+    ix_id = "{{ ix_id }}"
+).save()
+

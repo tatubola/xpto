@@ -1,0 +1,26 @@
+FROM python:3.5
+
+ENV PYTHONUNBUFFERED 1
+
+# Requirements have to be pulled and installed here, otherwise caching won't work
+COPY ./requirements /requirements
+RUN pip install -r /requirements/local.txt
+
+COPY ./compose/django/entrypoint.sh /entrypoint.sh
+RUN sed -i 's/\r//' /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+COPY ./compose/django/start-dev.sh /start-dev.sh
+RUN sed -i 's/\r//' /start-dev.sh
+RUN chmod +x /start-dev.sh
+
+RUN wget -q https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
+RUN tar xjf phantomjs-1.9.7-linux-x86_64.tar.bz2 -C ~/
+RUN ln -s ~/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+
+RUN apt-get update \
+    && apt-get install whois
+
+WORKDIR /app
+
+ENTRYPOINT ["/entrypoint.sh"]

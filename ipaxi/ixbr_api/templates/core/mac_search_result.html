@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="col-md-12 content-sub">
+        <div class="row">
+            <div class="col-md-5 title-container">
+                <div class="row">
+                    <div>
+                        <h1 class="title-header">{{ix.fullname}}</h1>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div>
+                        <h2 class="title-header">MAC {{mac.address}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="search-tag" class="align-self-center h-100 " action="{% url 'core:mac_search' code=ix.pk %}" method="GET">
+                            <div class="input-group">
+                                <input class="form-control" name="mac" id="id_mac" required="True" placeholder="Search for another MAC Address">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary">Search</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-{{ message.tags }}{% else %}alert-warning{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <div>
+            <h6>MAC Vendor: <span class="bold">{{vendor}}</span></h6>
+        </div>
+        <br>
+        <div class="row">
+            {%if services %}
+                {% for service in services %}
+                    <div class=" col-md-3">
+                        <div class="row jumbotron bold small">
+                            <div class="col-md-12">
+                                <p>
+                                <div class="row">
+                                    <label>Owner:
+                                        <a href="{% url 'core:ix_as_detail' code=ix.code asn=service.asn.pk %}">
+                                            {{service.asn.pk}}
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label>Service type: {{service.get_service_type}}</label>
+                                </div>
+                                <div class="row">
+                                    <label>PIX:
+                                        {{service.get_master_pix.code}}
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label>Port:    <a href="{% url 'core:switch_detail' code=ix.code switch_uuid=service.customer_channel.get_master_port.switch.pk %}">{{service.customer_channel.get_master_port}}</a></label>
+                                </div>
+                                <div class="row">
+                                    <label>Service IP: {{service.get_address}}</label>
+                                </div>
+                                <div class="row">
+                                    <label>Tag: {{service.tag.tag}}</label>
+                                </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                {% endfor %}
+            {% endif %}
+            {%if bilateral %}
+                <div class=" col-md-3">
+                    <div class="row jumbotron bold small">
+                        <div class="col-md-12">
+                            <p>
+                            <div class="row">
+                                <label>Owner:
+                                    <a href="{% url 'core:ix_as_detail' code=ix.code asn=bilateral.owner %}">
+                                        {{bilateral.owner}}
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <label>Service type: {{bilateral.service_type}}</label>
+                            </div>
+                            <div class="row">
+                                <label>PIX:
+                                    {{bilateral.pix}}
+                                </label>
+                            </div>
+                            <div class="row">
+                                <label>Port:    <a href="{% url 'core:switch_detail' code=ix.code switch_uuid=bilateral.switch_uuid %}">{{bilateral.port}}</a></label>
+                            </div>
+                            <div class="row">
+                                <label>Tag: {{ bilateral.tags }}</label>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

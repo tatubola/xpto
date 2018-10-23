@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="title">
+        <h2>Reserve Resource IP Address</h2>
+    </div>
+    <div class="col-md-12 content">
+         {% if messages %}
+           {% for message in messages %}
+             <div class="alert {% if message.tags == 'success' %}alert-{{ message.tags }}{% else %}alert-warning{% endif %}">{{ message }}</div>
+           {% endfor %}
+         {% endif %}
+     <div class="row">
+      <form class="django-form-reserve" action="{% url 'core:reserve_ip_resource' ix %}" method="post">
+        {% csrf_token %}
+      <table>
+        {{ form }}
+      </table>
+      <div class="col-md-4">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+      </div>
+      </form>
+     </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="title">
+        <h2>Edit Phone: {{phone}}</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row">
+            <form class="django-form" action="{% url 'core:edit_phone_form' phone %}" method="post">
+                {% csrf_token %}
+                <table>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="required">Ticket: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.last_ticket}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">Number: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.phone}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:30px;">
+                        <div class="col-md-2">
+                            <label class="required">Category: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.category}}
+                        </div>
+                    </div>
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

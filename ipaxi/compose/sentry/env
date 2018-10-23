@@ -1,0 +1,5 @@
+SENTRY_REDIS_HOST=redis
+SENTRY_POSTGRES_HOST=postgres
+SENTRY_SECRET_KEY=k0vm-ol!b50(kqt1booxq)cve#kyjlx6q!owmh!jc6w@r2_f7o
+
+C_FORCE_ROOT=True

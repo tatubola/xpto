@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="title">
+        <h2>Edit Contact: {{contact}}</h2>
+    </div>
+        <div class="row">
+            <form class="django-form" action="{% url 'core:edit_contact_form' contact contactsmap type_contact %}" method="post">
+                {% csrf_token %}
+                <table>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="required">Ticket: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.last_ticket}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.name}}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:30px;">
+                        <div class="col-md-2">
+                            <label class="required">Email: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.email}}
+                        </div>
+                    </div>
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

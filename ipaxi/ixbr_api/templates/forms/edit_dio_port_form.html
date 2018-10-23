@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="title">
+        <h2>Associate DIO Port to port {{dio_port}}</h2>
+    </div>
+    <div class="col-md-12 content">
+        <div class="row">
+            <form class="django-form" action="{% url 'core:edit_dio_port_form' pix dio_port %}" method="post">
+                {% csrf_token %}
+                <table>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="required">Ticket: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.last_ticket}}
+                        </div>
+                        <div class="col-md-2">
+                            <label>IX Position: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.ix_position}}
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">DC Position: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.dc_position}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">Switch: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.switch}}
+                        </div>
+                    </div>
+                    <div class="row  margintop30">
+                        <div class="col-md-2">
+                            <label class="required">Port: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.ports}}
+                        </div>
+                    </div>
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

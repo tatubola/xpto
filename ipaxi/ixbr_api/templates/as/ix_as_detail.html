@@ -1,0 +1,584 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a id="go-to-top-btn" onclick="topFunction()"  title="Go to top" class="btn btn-default">
+  <i class="fa fa-arrow-up" aria-hidden="true"></i>
+</a>
+<div class='container'>
+    <div class="row">
+        <div class="col-md-6 title-container">
+            <div class="row">
+                <div>
+                     <h1 class="title-header"><a class="hidden-link-title-header" href="{% url 'core:ix_detail' code=ix.pk %}">{{ix.fullname}}</a></h1>
+                </div>
+            </div>
+            <div class='row'>
+                <div >
+                    <h1 class="title-header">AS{{asn.pk}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Tab guidelines -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="channels-tab" data-toggle="tab" href="#channels-tab-content" role="tab" aria-controls="channels-tab-content" aria-selected="true">Channels</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="services-tab" data-toggle="tab" href="#services-tab-content" role="tab" aria-controls="services-tab-content" aria-selected="false">Services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="info-tab" data-toggle="tab" href="#info-tab-content" role="tab" aria-controls="info-tab-content" aria-selected="false">Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact-tab-content" role="tab" aria-controls="contact-tab-content" aria-selected="false">Contact</a>
+      </li>
+    </ul>
+    <!-- Tabs Content -->
+    <div class="tab-content" id="myTabContent">
+        <!-- Channel -->
+        <div class="tab-pane fade show active" id="channels-tab-content" role="tabpanel" aria-labelledby="channels-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if not asn_pix_channels.items %}
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-10 text-warning">
+                                        <h4><i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>&nbsp;<span class="bold">AS{{asn.pk}} has no channel.&nbsp;</span></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% for pix, channels in asn_pix_channels.items %}
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <h4>PIX: {{pix.code}}&nbsp;</h4>
+                                    </div>
+                                     <div class="col-md-2">
+                                        <a class="btn btn-outline-primary btn-sm" href="{% url 'core:add_customer_channel_form' asn=asn.pk pix=pix.pk %}" data-toggle="modal" data-target="#modal">
+                                            <i class="fa fa-plus-square">
+                                                new channel
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for channel in channels %}
+                                <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-header bold">
+                                            Channel {{channel.name}}
+                                            <i class="fa fa-question-circle" aria-hidden="true" title="{{channel.pk}}"></i>
+                                    </div>
+                                    <div class="card-body card-body-project small">
+                                        <div class="card-title"><span class="bold">CHANNEL CIX-Type:</span>&nbsp;{{channel.cix_type}}&nbsp;
+                                            <i class="fa fa-pencil-square-o" href="{% url 'core:edit_cix_type_form' channel.pk %}" aria-hidden="true" data-cix-type="{{channel.cix_type}}" data-toggle="modal" data-target="#modal"></i>
+                                        </div>
+                                        <div class="card-text">
+                                            <div class="col-md-12">
+                                            {% for switch in channel.get_switches %}
+                                                <div class="row"><span class="bold">Switch:</span>&nbsp;{{switch.management_ip}}: </div>
+                                                <br/>
+                                                {% for port in channel.get_ports %}
+                                                    {% if port.switch.management_ip == switch.management_ip %}
+                                                    <ul>
+                                                        <div class="row service-type">
+                                                            <li><span class="bold">Port:</span>&nbsp;{{port.name}}&nbsp;|&nbsp;<span class="bold">Type:</span>&nbsp;{{port.connector_type}}
+                                                                <div class="col-md-12">
+                                                                    <div class="row">
+                                                                        <span class="bold">Configured Capacity (Capacity):</span>&nbsp;{{port.configured_capacity}} ({{port.capacity}}) &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:edit_port_configured_capacity_form' port=port.pk %}" data-toggle="modal" data-target="#modal"></i>
+                                                                    </div>
+                                                                    {% for dioport in port.getDioPort %}
+                                                                        <div class="row"><span class="bold">DIO pos:</span>&nbsp;<a href="{% url 'core:dio_detail' dio=dioport.dio.pk %}">{{ dioport.ix_position }}</a></div>
+                                                                    {% endfor %}
+                                                                    <div class="row"><span class="bold">Interface:</span>&nbsp;{{port.physical_interface}}</div>
+                                                                </div>
+                                                            </li>
+                                                        </div>
+                                                    </ul>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                            </div>
+                                            <div class="card-link card-link-project italic bold" href="{% url 'core:add_port_channel_form' pix=pix.uuid channel=channel.pk %}" data-toggle="modal" data-target="#modal">[add new port]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row italic bold">
+                <div class="col-md-12 mb-3 mt-3">
+                    <div class="row">
+                        <div class="col-md-10 col-md-pull-2"></div>
+                        <div class="col-md-2 col-md-push-10">
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'core:add_pix_to_asn_form' ix=ix.pk asn=asn.pk %}" data-toggle="modal" data-target="#modal">
+                            <i class="fa fa-plus-square">
+                            to new pix
+                            </i>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Services -->
+        <div class="tab-pane fade" id="services-tab-content" role="tabpanel" aria-labelledby="services-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if not channel_services.items %}
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-10 text-warning">
+                                        <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>
+                                        <h4>AS{{asn.pk}} has no service.&nbsp;</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% for pix, channels in channel_services.items %}
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-pull-7">
+                                        <h4>PIX: {{pix}}&nbsp;</h4>
+                                    </div>
+                                    <div class="col-md-3 col-md-pull-3 col-md-push-5">
+                                        <a class="btn btn-outline-primary btn-sm" href="{% url 'core:generic_new_mlpa_add_form' asn.pk ix.code %}" data-toggle="modal" data-target="#modal">
+                                            <i class="fa fa-plus-square">
+                                                new mlpa in another channel
+                                            </i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 col-md-push-9">
+                                        <a class="btn btn-outline-primary btn-sm" href="{% url 'core:new_bilateral_used_channel' asn.pk ix.code %}" data-toggle="modal" data-target="#modal">
+                                            <i class="fa fa-plus-square">
+                                                new bilateral in another channel
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-wrapped">
+                            {% for key, value in channels.items %}
+                                <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-header bold">
+                                        Channel {{key.name}}
+                                        <i class="fa fa-question-circle" aria-hidden="true" title="{{key.pk}}"></i>
+                                    </div>
+                                    <div class="card-body card-body-project small">
+                                        <div class="card-text">
+                                            <div class="col-md-12">
+
+                                                <div class="row"><span class="bold">Last Ticket:</span> &nbsp;<a href="{{url_ticket_meuix}}{{key.last_ticket}}" target="_blank">{{key.last_ticket}}</a></div>
+                                                <div class="row"><span class="bold">AS{{key.asn.number}} CIX-Type:&nbsp;</span> {{key.cix_type}}</div>
+
+
+                                                    {% for switch in key.get_switches %}
+
+                                                        <div class="row"> <span class="bold">Switch:&nbsp;</span> {{switch.management_ip}} </div>
+                                                        <br/>
+                                                      {% for port in key.get_ports %}
+                                                          {% if port.switch.management_ip == switch.management_ip %}
+                                                          <ul>
+                                                            <div class="row service-type">
+                                                              <li> <span class="bold">Port:&nbsp;</span> {{port.name}} &nbsp;|&nbsp;
+                                                                <span class="bold">Type:&nbsp;</span> {{port.connector_type}}
+                                                                <div class="col-md-12">
+                                                                  <div class="row">
+                                                                    <span class="bold">Configured Capacity:&nbsp;</span>  {{port.configured_capacity}} ({{port.capacity}}) &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:edit_port_configured_capacity_form' port=port.pk %}" data-toggle="modal" data-target="#modal"></i>
+                                                                  </div>
+                                                                  {% for dioport in port.getDioPort %}
+                                                                    <div class="row"><span class="bold">DIO pos:&nbsp;</span> <a href="{% url 'core:dio_detail' dio=dioport.dio.pk %}">{{ dioport.ix_position }}</a></div>
+                                                                  {% endfor %}
+                                                                  <div class="row"> <span class="bold">Interface:&nbsp;</span> {{port.physical_interface}}</div>
+                                                                </div>
+                                                              </li>
+                                                            </div>
+                                                          </ul>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endfor %}
+
+
+                                                <div class="small">
+                                                    <div class="row bold">Services:</div>
+                                                </div>
+                                                <div class="row service-description small">
+                                                    <div class="col-md-12">
+                                                        {% for service_type in value %}
+                                                            <ul>
+                                                                {% for service in service_type %}
+                                                                    <div class="row service-type">
+                                                                        <li> <span class="bold">{{service.get_service_type}}</span>&nbsp;
+                                                                            {% csrf_token %}<i class="fa fa-trash" aria-hidden="true" title="Delete Service" onclick="delete_service('{{service.get_service_type}}', '{{service.pk}}')" onMouseOver="this.style.cursor='pointer'"></i>
+                                                                            <span class="status-label bold">{{service.status}}&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:edit_service_status_form' service=service.pk%}" data-toggle="modal" data-target="#modal"></i></span>
+                                                                            <div class="col-md-12">
+                                                                                <div class="row">
+                                                                                    <span class="bold">TAG:&nbsp;</span> {{service.tag.tag}}&nbsp;
+                                                                                    <i class="fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:edit_service_tag_form' service=service.pk code=ix.code%}" data-toggle="modal" data-target="#modal"></i>
+                                                                                </div>
+                                                                                {% if key.has_qinq%}
+                                                                                    <div class="row">
+                                                                                        <span class="bold">INNER: </span>{{service.inner}}&nbsp;
+                                                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                                    </div>
+                                                                                {%endif%}
+                                                                                <div class="row">
+                                                                                    <span class="bold">MAC Addresses:</span>&nbsp;
+                                                                                    {% if service.mac_addresses.all %}
+                                                                                        <i class="fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:add_mac_service_form' service=service.pk%}" data-toggle="modal" data-target="#modal"></i>
+                                                                                </div>
+                                                                                    {% else %}
+                                                                                        <i class="fa fa-plus-square" aria-hidden="true" href="{% url 'core:add_mac_service_form' service=service.pk%}" data-toggle="modal" data-target="#modal"></i>
+                                                                                        &nbsp;
+                                                                                </div>
+                                                                                <div class="text-warning">
+                                                                                    <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>
+                                                                                        <span class="bold">Service doesn't have any MAC Address associated.</span>
+                                                                                </div>
+                                                                                {% endif %}
+                                                                                <div>
+                                                                                    <ul>
+                                                                                        {%for mac in service.mac_addresses.all%}
+                                                                                            <li>
+                                                                                                {{mac.address}}&nbsp;
+                                                                                                    <i class="fa fa-trash delete-mac" data-mac="{{mac.address}}" data-service="{{service.pk}}" aria-hidden="true" href="{% url 'core:delete_mac_address_form'%}"></i>
+                                                                                            </li>
+                                                                                        {%endfor%}
+                                                                                    </ul>
+                                                                                </div>
+                                                                                {% if service.get_service_type == "MLPAv4"%}
+                                                                                    <div class="row">
+                                                                                        <span class="bold">IPv4 Address: </span>{{service.get_address.address}}&nbsp;
+                                                                                        <i class="fa fa-pencil-square-o" href="{% url 'core:edit_mlpav4_form' service=service.pk code=ix.code%}" data-toggle="modal" data-target="#modal" aria-hidden="true"></i>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <span class="bold">Prefix Limit: </span>{{service.prefix_limit}}&nbsp;
+                                                                                        <i class="fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:edit_service_prefix_limit_form' service=service.pk%}" data-toggle="modal" data-target="#modal"></i>
+                                                                                    </div>
+                                                                                {% elif service.get_service_type == "MLPAv6"%}
+                                                                                    <div class="row">
+                                                                                        <span class="bold">IPv6 Address:&nbsp;</span> {{service.get_address.address}}&nbsp;
+                                                                                        <i class="fa fa-pencil-square-o" href="{% url 'core:edit_mlpav6_form' service=service.pk code=ix.code%}" data-toggle="modal" data-target="#modal" aria-hidden="true"></i>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <span class="bold">Prefix Limit:&nbsp;</span> {{service.prefix_limit}}&nbsp;
+                                                                                        <i class="fa fa-pencil-square-o" aria-hidden="true" href="{% url 'core:edit_service_prefix_limit_form' service=service.pk%}" data-toggle="modal" data-target="#modal"></i>
+                                                                                    </div>
+                                                                                {% elif service.get_service_type == "BilateralPeer" %}
+                                                                                    <div class="row">
+                                                                                        <span class="bold">Peer:&nbsp;</span> AS{{service.peer_b_related.peer_a.asn.pk}}{{service.peer_a_related.peer_b.asn.pk}}
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <span class="bold">Partner TAG:&nbsp;</span> {{service.peer_b_related.peer_a.tag.tag}}{{service.peer_a_related.peer_b.tag.tag}}
+                                                                                    </div>
+                                                                                {% endif%}
+                                                                            </div>
+                                                                        </li>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endfor %}
+                                                        <div class="row italic bold">
+                                                             <div class="card-link card-link-project open-modal-form">
+                                                                <a href="{% url 'core:generic_mlpa_add_form' asn=asn.pk channel=key.pk code=ix.code %}" data-toggle="modal" data-target="#modal">
+                                                                [add_new_service]
+                                                                </a>
+                                                            </div>
+                                                            <div class="card-link card-link-project open-modal-form">
+                                                                <a href="{% url 'core:add_bilateral_form' asn=asn.pk channel=key.pk %}" data-toggle="modal" data-target="#modal">
+                                                                [add_new_bilateral_service]
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% empty %}
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-pull-7"></div>
+                                    <div class="col-md-3 col-md-pull-3 col-md-push-5">
+                                        <a class="btn btn-outline-primary btn-sm" href="{% url 'core:generic_new_mlpa_add_form' asn.pk ix.code %}" data-toggle="modal" data-target="#modal">
+                                            <i class="fa fa-plus-square">
+                                                new mlpa in another channel
+                                            </i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 col-md-push-9">
+                                        <a class="btn btn-outline-primary btn-sm" href="{% url 'core:new_bilateral_used_channel' asn.pk ix.code %}" data-toggle="modal" data-target="#modal">
+                                            <i class="fa fa-plus-square">
+                                                new bilateral in another channel
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Info -->
+        <div class="tab-pane fade" id="info-tab-content" role="tabpanel" aria-labelledby="info-tab">
+            <div class="col-md-12">
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="row bold">
+                            <h4>Services stats:</h4>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <p><span class="bold">MLPAv4:</span> {{mlpav4_total}}</p>
+                        </div>
+                        <div class="row">
+                            <p><span class="bold">MLPAv6:</span> {{mlpav6_total}}</p>
+                        </div>
+                        <div class="row">
+                            <p><span class="bold">Bilateral VLANs:</span>
+                                <a href="{% url 'core:bilateral_list' ix.code asn.number %}"><u>{{bilateral_total}}</u></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contacts -->
+        <div class="tab-pane fade small" id="contact-tab-content" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="col-md-12">
+                    <div class="row mt-3">
+                    {% if organization_contacts.organization.pk != None %}
+                        <div class="col-md-6">
+                            <div class="row">
+                                <h4 class="bold">{{organization_contacts.organization.shortname}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_organization_form' organization=organization_contacts.organization.pk %}" data-toggle="modal" data-target="#modal" aria-hidden="true"></i></h4>
+                            </div>
+                            <div class="row"><span class="bold">{{organization_contacts.organization.name}}</span>&nbsp;</div>
+                            <div class="row"><span class="bold">CNPJ:</span>&nbsp;{{organization_contacts.organization.cnpj}}</div>
+                            <div class="row"><span class="bold">Address:</span>&nbsp;{{organization_contacts.organization.address}}</div>
+                        </div>
+                    {% endif %}
+                        <div class="col-md-6">
+                            <div class="row">
+                                <h4 class="bold">ContactsMap <i class="fa fa-pencil-square-o" href="{% url 'core:edit_contacts_map_form' contactsmap=organization_contacts.pk ix=ix.pk asn=asn.pk %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i></h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row"><span class="bold">NOC:</span>&nbsp;{{organization_contacts.noc_contact}}</div>
+                                    <div class="row"><span class="bold">ADM:</span>&nbsp;{{organization_contacts.adm_contact}}</div>
+                                    <div class="row"><span class="bold">PEER:</span>&nbsp;{{organization_contacts.peer_contact}}</div>
+                                    <div class="row"><span class="bold">COM:</span>&nbsp;{{organization_contacts.com_contact}}</div>
+                                    {% if organization_contacts.organization.pk != None %}<div class="row"><span class="bold">ORG:</span>&nbsp;{{organization_contacts.org_contact}}</div>{% else %}<div class="row"><span class="bold">ORG: This AS is not under any Organization</span>&nbsp;</div>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row contact-description">
+                        <div class="col-md-12">
+                            <div class="row" style="margin-top:30px;">
+                                <h4 class="bold">Contacts <i class="fa fa-plus-square" href="{% url 'core:add_contact_form' contactsmap=organization_contacts.pk %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i></h4>
+                            </div>
+                            <div class="card-columns">
+                                <div class="card ">
+                                    <div class="card-header">
+                                        {{organization_contacts.noc_contact}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_contact_form' contact=organization_contacts.noc_contact.pk contactsmap=organization_contacts.pk type_contact='noc' %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i>
+                                    </div>
+                                    <div class="card-body card-body-project">
+                                        <div class="card-text col-md-12">
+                                            <div class="row">{{organization_contacts.noc_contact.name}}</div>
+                                            <div class="row">{{organization_contacts.noc_contact.email}}</div>
+                                            <div class="row italic bold">
+                                                <div class="card-link card-link-project open-modal-form">
+                                                    <a href="{% url 'core:add_phone_form' contact=organization_contacts.noc_contact.pk %}" data-toggle="modal" data-target="#modal">[add_phone]
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {%for number in organization_contacts.noc_contact.phone_set.all%}
+                                                <div class="row">{{number.number}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_phone_form' phone=number.pk %}" data-toggle="modal" data-target="#modal" aria-hidden="true"></i> &nbsp;<i class="fa fa-trash delete-phone" data-phone="{{number.pk}}" aria-hidden="true" href="{% url 'core:delete_phone_form' phone=number.pk %}"></i></div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        {{organization_contacts.adm_contact}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_contact_form' contact=organization_contacts.adm_contact.pk contactsmap=organization_contacts.pk type_contact='adm' %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i>
+                                    </div>
+                                    <div class="card-body card-body-project">
+                                        <div class="card-text col-md-12">
+                                            <div class="row">{{organization_contacts.adm_contact.name}}</div>
+                                            <div class="row">{{organization_contacts.adm_contact.email}}</div>
+                                            <div class="row italic bold">
+                                                <div class="card-link card-link-project open-modal-form">
+                                                    <a href="{% url 'core:add_phone_form' contact=organization_contacts.adm_contact.pk %}" data-toggle="modal" data-target="#modal">[add_phone]
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {%for number in organization_contacts.adm_contact.phone_set.all%}
+                                                <div class="row">
+                                                    {{number.number}}&nbsp;
+                                                    <i class="fa fa-pencil-square-o" href="{% url 'core:edit_phone_form' phone=number.pk %}" data-toggle="modal" data-target="#modal" aria-hidden="true">&nbsp;</i>   <i class="fa fa-trash delete-phone" data-phone="{{number.pk}}" aria-hidden="true" href="{% url 'core:delete_phone_form' phone=number.pk %}"></i>
+                                                </div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        {{organization_contacts.peer_contact}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_contact_form' contact=organization_contacts.peer_contact.pk contactsmap=organization_contacts.pk type_contact='per' %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i>
+                                    </div>
+                                    <div class="card-body card-body-project">
+                                        <div class="card-text col-md-12">
+                                            <div class="row">{{organization_contacts.peer_contact.name}}</div>
+                                            <div class="row">{{organization_contacts.peer_contact.email}}</div>
+                                            <div class="row italic bold">
+                                                <div class="card-link card-link-project open-modal-form">
+                                                    <a href="{% url 'core:add_phone_form' contact=organization_contacts.peer_contact.pk %}" data-toggle="modal" data-target="#modal">[add_phone]
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {%for number in organization_contacts.peer_contact.phone_set.all%}
+                                                <div class="row">
+                                                    {{number.number}}&nbsp;
+                                                    <i class="fa fa-pencil-square-o" href="{% url 'core:edit_phone_form' phone=number.pk %}" data-toggle="modal" data-target="#modal" aria-hidden="true"></i>
+                                                        &nbsp;
+                                                    <i class="fa fa-trash delete-phone" data-phone="{{number.pk}}" aria-hidden="true" href="{% url 'core:delete_phone_form' phone=number.pk %}"></i>
+                                                </div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        {{organization_contacts.com_contact}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_contact_form' contact=organization_contacts.com_contact.pk contactsmap=organization_contacts.pk type_contact='com' %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i>
+                                    </div>
+                                    <div class="card-body card-body-project">
+                                        <div class="card-text col-md-12">
+                                            <div class="row">{{organization_contacts.com_contact.name}}</div>
+                                            <div class="row">{{organization_contacts.com_contact.email}}</div>
+                                            <div class="row italic bold">
+                                                <div class="card-link card-link-project open-modal-form">
+                                                    <a href="{% url 'core:add_phone_form' contact=organization_contacts.com_contact.pk %}" data-toggle="modal" data-target="#modal">[add_phone]
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {%for number in organization_contacts.com_contact.phone_set.all%}
+                                                <div class="row">{{number.number}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_phone_form' phone=number.pk %}" data-toggle="modal" data-target="#modal" aria-hidden="true">&nbsp;</i>    <i class="fa fa-trash delete-phone" data-phone="{{number.pk}}" aria-hidden="true" href="{% url 'core:delete_phone_form' phone=number.pk %}"></i></div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                  {% if organization_contacts.organization.pk != None %}
+                                <div class="card">
+                                    <div class="card-header">
+                                        {{organization_contacts.org_contact}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_contact_form' contact=organization_contacts.org_contact.pk contactsmap=organization_contacts.pk type_contact='com' %}" data-toggle="modal" data-target="#modal"  aria-hidden="true"></i>
+                                    </div>
+                                    <div class="card-body card-body-project">
+                                        <div class="card-text col-md-12">
+                                            <div class="row">{{organization_contacts.org_contact.name}}</div>
+                                            <div class="row">{{organization_contacts.org_contact.email}}</div>
+                                            <div class="row italic bold">
+                                                <div class="card-link card-link-project open-modal-form">
+                                                    <a href="{% url 'core:add_phone_form' contact=organization_contacts.org_contact.pk %}" data-toggle="modal" data-target="#modal">[add_phone]
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {%for number in organization_contacts.org_contact.phone_set.all%}
+                                                <div class="row">{{number.number}}&nbsp;<i class="fa fa-pencil-square-o" href="{% url 'core:edit_phone_form' phone=number.pk %}" data-toggle="modal" data-target="#modal" aria-hidden="true">&nbsp;</i>    <i class="fa fa-trash delete-phone" data-phone="{{number.pk}}" aria-hidden="true" href="{% url 'core:delete_phone_form' phone=number.pk %}"></i></div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                </div>
+                                  {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal fade" data-animation="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="asModalHeader" class="modal-header">
+                <div class="title-holder">
+                    <h1>Loading statistics...</h1>
+                </div>
+                <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+             <div class="modal-body my-3">
+                <div class="d-flex flex-sm-column align-items-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SubModal -->
+<div id="sub-modal" class="modal fade" data-animation="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="asModalHeader" class="modal-header">
+                <div class="title-holder">
+                    <h1>Loading statistics...</h1>
+                </div>
+                <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+             <div class="modal-body my-3">
+                <div class="d-flex flex-sm-column align-items-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascript %}
+    {{ block.super }}
+        <script type="text/javascript">
+          var code = "{{ix.code}}";
+          var asn = {{asn.pk}};
+          var channel = "{{channel.pk}}";
+        </script>
+        <script type="text/javascript" src="{% static 'js/service_add_form.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/modal_render.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/ix-as-detail.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/customer_channel_add_form.js' %}"></script>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,10 @@
+/*
+Check /node_modules/bootstrap/scss/_variables.scss to see which variables can
+be modified
+*/
+
+$font-family-base: "Helvetica Neue", Helvetica, Arial, TeXGyreHeros, sans-serif;
+$link-color: #d66902;
+$font-size-base: 0.875rem;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";

@@ -1,0 +1,6 @@
+<pre>AS         Participantes       IPv4:{{ context.ips_range.ipv4_range }} IPv6:{{ context.ips_range.ipv6_range }}    PIX      Chamado                Porta
+---------------------------------------------------------------------------------------------------------------------
+{% for line in context.lines %}
+{{ line }}
+{% endfor %}
+</pre>

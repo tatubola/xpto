@@ -1,0 +1,59 @@
+# Wheel 0.25+ needed to install certain packages on CPython 3.5+
+# like Pillow and psycopg2
+# See http://bitly.com/wheel-building-fails-CPython-35
+# Verified bug on Python 3.5.1
+wheel==0.31.1
+
+# LTS Django
+django==1.11.15
+
+# Configuration
+django-environ==0.4.4
+whitenoise==3.3.1
+
+
+# Forms
+django-braces==1.12.0
+django-crispy-forms==1.7.2
+
+# Models
+django-model-utils==2.6.1
+
+# Images
+Pillow==4.3.0
+
+# For user registration, either via email or social
+# Well-built with regular release cycles!
+django-allauth==0.35.0
+
+
+# Python-PostgreSQL Database Adapter
+psycopg2==2.7.4
+
+# Unicode slugification
+awesome-slugify==1.6.5
+
+# Time zones support
+pytz==2018.3
+
+# Redis support
+django-redis==4.7.0
+redis>=2.10.5
+
+# Whois
+ipwhois==0.15.1
+
+# Logging
+# raven==6.0.0
+
+# Your custom requirements go here
+djangorestframework==3.8.2
+django-rest-swagger==2.1.2
+
+django-simple-history==1.8.2
+
+# Usage of decorators to get logs
+wrapt==1.10.11
+
+# Django Extensions
+django-extensions==1.9.9

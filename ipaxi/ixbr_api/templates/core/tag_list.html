@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+	{{ block.super }}
+	<style type="text/css">
+		tr.odd > td:nth-child(1),
+		tr.even > td:nth-child(2) {
+		    background-color: #B0B0D0
+		}
+
+		tr.odd > td:nth-child(2),
+		tr.even > td:nth-child(1) {
+		    background-color: #DEDEFF
+		}
+	</style>
+{% endblock %}
+
+{% block title %}IX: {{ix.fullname}} | Allocation TAGs {{ ix.service }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+    	<div class="title-container">
+            {%if bundle.name %}
+        		<div class="col-md-12">
+        			<h1>TAGs from {{bundle.name}} at </h1>
+        		</div>
+        		<div>
+        			<h1 class="title-header"><span>{{ix.fullname}}</span></h1>
+        		</div>
+        		{%else%}
+        		<div>
+        			<h1 class="title-header">TAGs from <span>{{ix.fullname}}</span></h1>
+        		</div>
+    		{%endif%}
+        </div>
+	</div>
+    <br>
+    <br>
+	<div id="input-error" class="alert alert-danger hidden">
+		<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+		<strong>Error!</strong> Please, insert a not empty input.
+	</div>
+	<div id="input-warning" class="alert alert-warning hidden">
+		<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+		<strong>Warning!</strong> This ASN doesn't match with this bundle.
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+		    <div class="input-group">
+                <input id="asn-search-tag" type="number" min="1" max="2147483647" class="form-control form-control-success" name="asn" maxlength="150" placeholder="Search the TAG by ASN...">
+                <span class="input-group-btn">
+                    <button id="search-btn" class="btn btn-primary" type="button">Search</button>
+                </span>
+		    </div>
+		</div>
+		<div class="col-lg-6" align="right">
+			<select class="custom-select">
+				<option value="filter">Filter by status</option>
+				<option value="all">All</option>
+				<option value="available" {% if tag_status == "available" %} selected {%endif%}>Available</option>
+				<option value="production" {% if tag_status == "production" %} selected {%endif%}>Production</option>
+				<option value="allocated" {% if tag_status == "allocated" %} selected {%endif%}>Allocated</option>
+			</select>
+		</div>
+	</div>
+	<div class="filter-displaying-option">
+		<p><strong>Displaying <span class="filter-status">all</span> tags.</strong></p>
+	</div>
+    <div>
+        <a href="{% url 'core:reserve_tag_resource' ix=ix.code %}" data-toggle="modal" data-target="#modal">Reserve Tag</a> | 
+        <a href="{% url 'core:release_tag_resource' ix=ix.code %}" data-toggle="modal" data-target="#modal">Release Tag</a> | 
+        <a  href="{% url 'core:allocate_tag_status' ix=ix.code %}{% if bundle.name %}?bundle_pk={{ bundle.pk }}{% endif %}" data-toggle="modal" data-target="#modal">Allocate Tag</a> |
+        <a  href="{% url 'core:deallocate_tag_status' ix=ix.code %}{% if bundle.name %}?bundle_pk={{ bundle.pk }}{% endif %}" data-toggle="modal" data-target="#modal">Deallocate Tag</a>
+    </div>
+    <br>
+	<table id="tag-list-table" class="table borderless table-resposive" width="100%">
+		<thead class="thead-inverse">
+			<tr>
+				<th class="text-center">TAG</th>
+                <th class="text-center">Reserved</th>
+                <th class="text-center">TAG STATUS</th>
+				<th class="text-center">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for value in object_list %}
+			<tr class="main-info tag-{{value.tag}}-main-info {{value.status}}-status" data-id='{{value.uuid}}' data-tag='{{value.tag}}' data-status='{{value.status}}' id="main-info-{{value.uuid}}">
+				<td id="{{value.uuid}}" class="text-center tag-value">{{value.tag}}</td>
+                {% if value.reserved %}
+                <td class="text-center text-danger {{value.tag}}-status">True</td>
+                {% else %}
+                <td class="text-center text-danger {{value.tag}}-status"></td>
+                {% endif %}
+			    {% if value.status == 'AVAILABLE'%}
+				<td class="text-center text-success {{value.tag}}-status">{{value.status}}</td>
+                {% else %}
+                <td class="text-center text-danger {{value.tag}}-status">{{value.status}}</td>
+                {% endif %}
+                <td class="align-middle text-center">
+                    <div class="row">
+                        <div class="col-md-10">
+                            {{ value.description }}
+                        </div>
+                        <div class="col-md-2">
+                            {% if value.description == "" %}
+                                <i class="fa fa-plus-circle no_display" aria-hidden="true" href="{% url 'core:edit_tag_description_form' tag=value.pk %}" data-toggle="modal" data-target="#modal" title="Add description"></i>
+                            {% else %}
+                                <i class="fa fa-pencil-square-o no_display" aria-hidden="true" href="{% url 'core:edit_tag_description_form' tag=value.pk %}" data-toggle="modal" data-target="#modal" title="Edit description"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+			</tr>
+			<tr style="display:none" class="more-info" id="display-{{value.uuid}}">
+				<td class="text-center" colspan="2">
+					<div id="tag-asn">
+        				<p id="tag-asn-{{value.tag}}-paragraph" style="margin-bottom:0px;">
+        					<span class="bold">ASN: </span><a href="#" id="asn-url-{{value.uuid}}"><span id="tag{{value.tag}}-asn"></span></a>
+        				</p>
+        			</div>
+				</td>
+				<td class="text-center" colspan="2">
+					<div id="tag-name">
+        				<p id="tag-name-{{value.tag}}-paragraph" style="margin-bottom:0px;">
+        					<span class="bold">NAME: </span><a href="#" id="name-url-{{value.uuid}}"><span id="tag{{value.tag}}-name"></span></a>
+        				</p>
+        			</div>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<div>
+		<p>
+			<strong>TOTAL:</strong>
+			<span class="text-success">AVAILABLE</span>: {{available_amount}} |
+			<span class="text-danger">PRODUCTION</span>: {{production_amount}}.
+		</p>
+	</div>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="asModalHeader" class="modal-header">
+                <div class="title-holder">
+                    <h1>Loading tags...</h1>
+                </div>
+                <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body my-3">
+                <div class="d-flex flex-sm-column align-items-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+	{{ block.super }}
+    <script type="text/javascript">
+    	var code = "{{ix.code}}";
+    </script>
+    <script src="{% static 'js/tag_list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal_render.js' %}"></script>
+{% endblock %}

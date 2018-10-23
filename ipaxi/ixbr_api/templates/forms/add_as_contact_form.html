@@ -1,0 +1,222 @@
+<div class="container">
+    <div class="title">
+        <h2>New AS: {{asn}}</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row">
+            <form class="django-form" action="{% url 'core:add_as_contact_form' asn=asn %}" method="post" style="min-width:100%;">
+                {% csrf_token %}
+
+                <table>
+                    {{form.asn}}
+                    {{form.org_name}}
+                    {{form.org_shortname}}
+                    {{form.org_cnpj}}
+                    {{form.org_url}}
+                    {{form.org_addr}}
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="required">Ticket: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.ticket}}
+                        </div>
+                        <div class="col-md-2">
+                            <input type="button" class="btn btn-primary" onclick="contactPopulate()" value="Populate With Ticket">
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-contact">
+                                <h6><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Basic information:</h6>
+                            </div>
+                            <div class="border-contacts"></div>
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">IX: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.ix}}
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label>Organization: </label>
+                        </div>
+                        <div class="col-md-4">
+                          {{form.organization}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-contact">
+                                <h6><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;NOC Contact:</h6>
+                            </div>
+                            <div class="border-contacts"></div>
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">NOC Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_name_noc}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">NOC Email: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_email_noc}}
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">NOC Phone: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_phone_noc}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-contact">
+                                <h6><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;ADM Contact:</h6>
+                            </div>
+                            <div class="border-contacts"></div>
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">ADM Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_name_adm}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">ADM Email: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_email_adm}}
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">ADM Phone: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_phone_adm}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-contact">
+                                <h6><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;PEER Contact:</h6>
+                            </div>
+                            <div class="border-contacts"></div>
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">PEER Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_name_peer}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">PEER Email: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_email_peer}}
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">PEER Phone: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_phone_peer}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-contact">
+                                <h6><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Commercial Contact:</h6>
+                            </div>
+                            <div class="border-contacts"></div>
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">Commercial Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_name_com}}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="required">Commercial Email: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_email_com}}
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label class="required">Commercial Phone: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_phone_com}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-contact">
+                                <h6><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Organization Contact:</h6>
+                            </div>
+                            <div class="border-contacts"></div>
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label>Organization Name: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_name_org}}
+                        </div>
+                        <div class="col-md-2">
+                            <label>Organization Email: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_email_org}}
+                        </div>
+                    </div>
+                    <div class="row margintop30">
+                        <div class="col-md-2">
+                            <label>Organization Phone: </label>
+                        </div>
+                        <div class="col-md-4">
+                            {{form.contact_phone_org}}
+                        </div>
+                    </div>
+                </table>
+                <div class="row">
+                    <div class="col-md-6"><center><input type="button" class="btn btn-primary" onclick="backPrevious()" value="Back"></center></div>
+
+                    <div class="col-md-6"><center><button id='add-asn' class="btn btn-primary" type="submit">Add</button></center></div>
+                </div>
+            </form>
+        </div>
+        <div style="margin-top: 10px">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

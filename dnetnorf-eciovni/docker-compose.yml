@@ -1,0 +1,15 @@
+version: "2"
+services:
+  node:
+    user: node
+    build:
+      context: .
+      dockerfile: compose/node/Dockerfile
+    environment:
+      - NODE_ENV=development
+    command: npm run serve
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules
+    ports:
+      - "8081:8081"

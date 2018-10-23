@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}IX {{ ix.fullname }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>IX {{ ix.fullname }}</h2>
+
+  <div class="list-group">
+    {% for pix in pix_list %}
+      <a href="{% url 'core:switch-by-pix-list' ix.code pix.uuid %}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ pix.code }}</h4>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

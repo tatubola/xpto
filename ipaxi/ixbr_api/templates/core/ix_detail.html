@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load static %}
+{% load core_filters %}
+{% block title %}IX: {{ ix.fullname }}{% endblock %}
+
+{% block javascript %}
+   {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/modal_render.js' %}"></script>
+    <script type="text/javascript">
+
+      var code = "{{ix.code}}";
+      var get_tag = "{% url 'core:tag_search' code=ix.pk %}";
+      var get_ip = "{% url 'core:ip_search' code=ix.pk %}";
+      var get_mac = "{% url 'core:mac_search' code=ix.pk %}";
+
+    </script>
+    <script src="{% static 'js/ix_detail.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 title-container">
+            <div>
+                <h1 class="title-header">{{ ix.fullname }}</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="align-self-center h-100">
+                <form id="search-form" action="{% url 'core:ip_search' code=ix.pk %}" method="GET" novalidate>
+                    <div class="input-group">
+                        <select id="search-options" class="custom-select">
+                            <option value="IP">IP</option>
+                            <option value="Tag">Tag</option>
+                            <option value="MAC">MAC</option>
+                        </select>
+                        <input id="search-input" type="text" class="form-control" name="ip"  required="True" placeholder="Search for IPs...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" id="search-button">Search</button>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="invalid-feedback"></p>
+                        </div>
+                    </div>
+                </form>
+
+                <div id="message-search-form">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == "search_not_found" %}
+                                <div class="alert alert-warning"> {{ message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-pull-6">
+            <div class="col-md-12 jumbotron">
+                <div>
+                    <h2>Resume:</h2>
+                    <hr>
+                </div>
+            <div class="beige-container-information">
+                <p id="management-prefix">
+                    <span class="bold">Management prefix: {{ ix.management_prefix }}</span> 
+                </p>
+                <p id="ipv4-prefix">
+                    <span class="bold">IPv4:</span> <a href="{% url 'core:ip_list' ix.code %}">{{ ix.ipv4_prefix }}</a>
+                </p>
+                <p id="ipv6-prefix">
+                    <span class="bold">IPv6:</span> <a href="{% url 'core:ip_list' ix.code %}">{{ ix.ipv6_prefix }}</a>
+                </p>
+                <p id="available-tags">
+                    <span class="bold">Available Tags:</span> {{ total_available_tags }}
+                </p>
+                <p id="production-tags">
+                    <span class="bold">Production Tags:</span> {{ total_production_tags }}
+                </p>
+                <p id="reserved-tags">
+                    <span class="bold">Reserved Tags:</span> {{ total_reserved_tags }}
+                </p>
+                <p><small>{%if is_managed == False %}<a href="{% url 'core:bundle_list' ix.code %}">{%else%}<a href="{% url 'core:tag_list_without_bundle' code=ix.code %}">{%endif%}See all tags</a></small></p>
+            </div>
+            <div class="pix-set">
+                <h2>PIXs:</h2>
+                <hr>
+            </div>
+            {% for pix in pixs %}
+                <div class="pix-info" id="{{pix.uuid}}">
+                    <h6>
+                        <span class="bold">{{pix.code}} </span>
+                        <span class="icon-{{pix.uuid}}">
+                            <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                        </span>
+                    </h6>
+                    <div class="info-{{pix.uuid}} pix-info-son" style="display: none">
+                        <p id="asn-info-{{pix.uuid}}">ASNs:
+                            [
+                            {% with asns=pix.get_asns %}
+                                {% for asn in asns %}
+                                    <a class="pix-info-link" href="{% url 'core:ix_as_detail' code=ix.code asn=asn %}">{{asn}}</a>
+                                {% endfor %}
+                            {% endwith %}
+                            ]
+
+                        <p id="mlpav4-info-{{pix.uuid}}">MLPAv4: <span class="mlpav4-info-{{pix.uuid}}"></span></p>
+                        <p id="mlpav6-info-{{pix.uuid}}">MLPAv6: <span class="mlpav6-info-{{pix.uuid}}"></span></p>
+                        <p id="bilateral-info-{{pix.uuid}}">Bilateral VLANs: <span class="bilateral-info-{{pix.uuid}}"></span></p>
+                        <p id="cix-info-{{pix.uuid}}">CIX: <span class="cix-info-{{pix.uuid}}"></span></p>
+                        <a class="pix-info-link" href="{% url 'core:dio_list' code=ix.code pix=pix.uuid %}">DIO list</a>
+                        <p id="switchs-info-{{pix.uuid}}">Switchs:
+                            <div>
+                                <ul class="switchs-info-{{pix.uuid}}"></ul>
+                            </div>
+                        </p>
+                        <a class="pix-info-link" href="{% url 'core:migrate_switch_form' pix=pix.uuid %}" data-toggle="modal" data-target="#modal">Migrate Switch</a> | <a class="pix-info-link" href="{% url 'core:create_switch_form' pix=pix.uuid %}" data-toggle="modal" data-target="#modal">Create Switch</a>
+                    </div>
+                </div>
+            {% endfor %}
+            <a class="pix-info-link" href="{% url 'core:create_pix_form' ix=ix.code %}" data-toggle="modal" data-target="#modal">Create New PIX </a> | <a class="pix-info-link" href="{% url 'core:create_switch_model_form' %}" data-toggle="modal" data-target="#modal"> Create Switch Model</a>
+            <div class="cix-set">
+                <h2>CIXs:</h2>
+                <hr>
+            </div>
+            {% for key, cix in cixs.items %}
+                <div class="cix-info" id="{{cix.uuid}}">
+                    <h6>
+                        <span class="bold">AS{{cix.number}} | PIX {{cix.pix.code}}</span>
+                        <span class="icon-{{cix.uuid}}">
+                            <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                        </span>
+                    </h6>
+                    <div class="info-{{cix.uuid}} cix-info-son" style="display: none">
+                        <p id="asn-cix-info-{{cix.uuid}}">ASNs: <span class="asn-cix-info-{{cix.uuid}}"></span></p>
+                        <p id="mlpav4-cix-info-{{cix.uuid}}">MLPAv4: <span class="mlpav4-cix-info-{{cix.uuid}}"></span></p>
+                        <p id="mlpav6-cix-info-{{cix.uuid}}">MLPAv6: <span class="mlpav6-cix-info-{{cix.uuid}}"></span></p>
+                        <p id="bilateral-cix-info-{{cix.uuid}}">Bilateral VLANs: <span class="bilateral-cix-info-{{cix.uuid}}"></span></p>
+                        <p id="channel-cix-info-{{cix.uuid}}">Channel: <span class="channel-cix-info-{{cix.uuid}}"></span> </p>
+                        <p>
+                            <div class='row'>
+                                <div class="col-md-1" id="lag-{{cix.uuid}}>">
+                                    {% if cix.is_lag or cix.is_mclag %}
+                                        LAG:
+                                    {% endif %}
+                                </div>
+                                <div class='col-md-11 channel-cix-info-lag-{{cix.uuid}}' style='padding-left:10px;'></div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-6 col-md-pull-6">
+        <div class="row">
+            <div class="col-md-12 jumbotron">
+                <div>
+                    <h2>Stats:</h2>
+                    <hr>
+                </div>
+                <div>
+                    <p class="bold">ASs: {{asn_total}}</p>
+                    <p class="bold">MLPAv4: {{mlpav4_total}}</p>
+                    <p class="bold">MLPAv6: {{mlpav6_total}}</p>
+                    <p class="bold">Bilateral VLANs: {{bilateral_total}}</p>
+                    <p class="bold">PIX: {{pixs|length}} </p>
+                    <p class="bold">CIX: {{cixs|length}}</p>
+                    <p class="bold">Available ports: {{total_available_ports}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal" class="modal fade" data-animation="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="asModalHeader" class="modal-header">
+                <div class="title-holder">
+                    <h1>Loading statistics...</h1>
+                </div>
+                <button type="button" class="close pt-0" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body my-3">
+                <div class="d-flex flex-sm-column align-items-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

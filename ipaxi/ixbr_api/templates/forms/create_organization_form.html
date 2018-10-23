@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="title">
+        <h2>Create Organization</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row">
+            <form class="django-form" method="post" action="{% url 'core:create_organization_form' %}"
+                  style="min-width:100%;">
+                {% csrf_token %}
+                <table>
+                    {{form}}
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

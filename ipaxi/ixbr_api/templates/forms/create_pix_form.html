@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="title">
+        <h2>Create PIX in {{ix.code}}</h2>
+    </div>
+    <div class="col-md-12 content">
+        {% load static %}
+        <div class="row">
+            <form class="django-form" action="{% url 'core:create_pix_form' ix=ix.code %}" method="post"
+                  style="min-width:100%;">
+                {% csrf_token %}
+                <table>
+                    {{form}}
+                </table>
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

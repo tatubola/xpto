@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+	<div class="col-md-12 content-sub">
+		<div class="row">
+	        <div class="col-md-5 title-container">
+			    <div class="row">
+			        <div>
+			            <h2 class="title-header"><span>TAG SEARCH</span> at IX.br </h4>
+			        </div>
+			    </div>
+				<div class='row'>
+				    <div>
+				    	 <h1 class="title-header"><span>{{ix.fullname}}</span></h1>
+				    </div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12">
+				        <form id="search-tag" class="align-self-center h-100 " action="{% url 'core:tag_search' code=ix.pk %}" method="GET">
+							<div class="input-group">
+								<input type="number" min="0" max="4095" class="form-control" name="tag" id="id_tag" required="True" placeholder="Search for Tag...">
+								<span class="input-group-btn">
+									<button class="btn btn-primary">Search</button>
+								</span>
+							</div>
+				        </form>      
+				    </div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<hr>
+		<br>
+		<div class="row">
+
+				{% for tag in tag_queryset %}
+					<div class=" col-md-3">
+						<div class="row jumbotron bold small">
+							<div class="col-md-12">
+								<div class="row">
+									<label>Tag: {{tag.tag}}</label>
+									<div class="col-md-6">
+									<label>{{tag.status}}</label>
+									</div>
+								</div>
+								{% if tag.tag_domain.downlinkchannel %}
+								<div class="row">
+									<label>Tag Domain: {{tag.tag_domain.downlinkchannel.name}}</label>
+								</div>
+								{% elif  tag.tag_domain.customerchannel %}
+								<div class="row">
+									<label>Tag Domain: {{tag.tag_domain.customerchannel.name}}</label>
+								</div>
+								{% endif %}
+								{% if tag.get_services%}
+									{% for type, service in tag.get_services %}
+										<p>
+											<div class="row">
+												<label>Owner: <a href="{% url 'core:ix_as_detail' code=ix.code asn=service.asn.pk %}">
+												{{service.asn.pk}} </a></label>
+											</div>
+											<div class="row">
+												<label>Service type: {{type}}</label>
+											</div>
+											<div class="row">
+												<label>PIX: {{service.get_master_pix.code}}</label>
+											</div>
+											<div class="row">
+												<label>Port: 	<a href="{% url 'core:switch_detail' code=ix.code switch_uuid=service.customer_channel.get_master_port.switch.pk %}">{{service.customer_channel.get_master_port}}</a></label>
+											</div>
+											<div class="row">
+												<label>Service IP: {{service.get_address}}</label>
+											</div>
+											{% if service.inner %}
+											<div>
+												<label>Inner tag: {{service.inner}}</label>
+											</div>											
+											{% endif %}
+										</p>
+									{% endfor %}
+								{% endif %}
+
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+				{% endfor %}
+		</div>
+    </div>
+</div>
+{% endblock %}
